@@ -219,4 +219,4 @@ def api_categories():
         connection_object.close()
 
 
-app.run(port=3000)
+app.run(port=3000, host="0.0.0.0")
