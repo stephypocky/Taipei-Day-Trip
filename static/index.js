@@ -87,9 +87,7 @@ function allAttra(keyword) {
     .then((response) => response.json())
     .then((data) => { 
         let content = document.querySelector("#content");
-        // let outerDiv=document.createElement("DIV");
-        // outerDiv.setAttribute("class", "outer-div");
-        // console.log(data["data"])
+ 
         if(data["data"].length==0){ 
             let nodataDiv= document.createElement("DIV");
             nodataDiv.setAttribute("class", "nodata-div");
@@ -111,9 +109,10 @@ function allAttra(keyword) {
                 content.appendChild(attraAll);
             
 
-                let imgBox = document.createElement("IMG");
+                let imgBox = document.createElement("DIV");
                 imgBox.setAttribute("class", "img");
-                imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
+                // imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
+                imgBox.style.cssText = `background-image: url('${data["data"][i]["images"][0]}')`
                 attraAll.appendChild(imgBox);
             
         
@@ -142,45 +141,8 @@ function allAttra(keyword) {
 
                 let category=document.createTextNode((new String(data["data"][i]["category"])));
                 categoryBox.appendChild(category);
-                
-                // let attraAll = document.createElement("DIV");
-                // attraAll.setAttribute("class", "attra-all");
-                // outerDiv.appendChild(attraAll);
-
-                // let imgBox = document.createElement("IMG");
-                // imgBox.setAttribute("class", "img");
-                // imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
-                // attraAll.appendChild(imgBox);
+            };
             
-        
-                // let nameBox = document.createElement("DIV");
-                // nameBox.setAttribute("class", "attra-name");
-                // attraAll.appendChild(nameBox);
-            
-                // let name= document.createTextNode((new String(data["data"][i]["name"])));
-                // nameBox.appendChild(name);
-        
-                // let attraSub = document.createElement("DIV");
-                // attraSub.setAttribute("class", "attra-sub");
-                // attraAll.appendChild(attraSub);
-
-                // let mrtBox = document.createElement("DIV");
-                // mrtBox.setAttribute("class", "mrt");
-                // attraSub.appendChild(mrtBox);
-
-                // let mrt=document.createTextNode((new String(data["data"][i]["mrt"])));
-                // mrtBox.appendChild(mrt);
-    
-
-                // let categoryBox = document.createElement("DIV");
-                // categoryBox.setAttribute("class", "category");
-                // attraSub.appendChild(categoryBox);
-
-                // let category=document.createTextNode((new String(data["data"][i]["category"])));
-                // categoryBox.appendChild(category);
-                };
-            
-
                 observer.unobserve(target);
                 return //強制離開此 function allAttra()，不然就會繼續跑下個 if
             }
@@ -194,9 +156,10 @@ function allAttra(keyword) {
                         attraAll.setAttribute("class", "attra-all");
                         content.appendChild(attraAll);
 
-                        let imgBox = document.createElement("IMG");
+                        let imgBox = document.createElement("DIV");
                         imgBox.setAttribute("class", "img");
-                        imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
+                        // imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
+                        imgBox.style.cssText = `background-image: url('${data["data"][i]["images"][0]}')`
                         attraAll.appendChild(imgBox);
                     
                 
@@ -225,54 +188,11 @@ function allAttra(keyword) {
 
                         let category=document.createTextNode((new String(data["data"][i]["category"])));
                         categoryBox.appendChild(category);
-
-                        // let attraAll = document.createElement("DIV");
-                        // attraAll.setAttribute("class", "attra-all");
-                        // outerDiv.appendChild(attraAll);
-
-                        // let imgBox = document.createElement("IMG");
-                        // imgBox.setAttribute("class", "img");
-                        // imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
-                        // attraAll.appendChild(imgBox);
-                    
-                
-                        // let nameBox = document.createElement("DIV");
-                        // nameBox.setAttribute("class", "attra-name");
-                        // attraAll.appendChild(nameBox);
-                    
-                        // let name= document.createTextNode((new String(data["data"][i]["name"])));
-                        // nameBox.appendChild(name);
-                
-                        // let attraSub = document.createElement("DIV");
-                        // attraSub.setAttribute("class", "attra-sub");
-                        // attraAll.appendChild(attraSub);
-
-                        // let mrtBox = document.createElement("DIV");
-                        // mrtBox.setAttribute("class", "mrt");
-                        // attraSub.appendChild(mrtBox);
-
-                        // let mrt=document.createTextNode((new String(data["data"][i]["mrt"])));
-                        // mrtBox.appendChild(mrt);
-            
-
-                        // let categoryBox = document.createElement("DIV");
-                        // categoryBox.setAttribute("class", "category");
-                        // attraSub.appendChild(categoryBox);
-
-                        // let category=document.createTextNode((new String(data["data"][i]["category"])));
-                        // categoryBox.appendChild(category);
         
                     };
-
-                    // let content = document.querySelector("#content");
-                    // content.appendChild(attraAll);
-
-
-
                         page = data["nextPage"];
                         observer.observe(target);//再把observe打開，不然load不到有keyword的下一頁
 
-                    // console.log("12")
                 }
     });
 

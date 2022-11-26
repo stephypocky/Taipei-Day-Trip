@@ -3,30 +3,27 @@
 * {
     margin: 0;
     padding: 0;
-    /* list-style: none;  */
     box-sizing: border-box;
+    font-family: 'Noto Sans TC';
 }
-
 
 .navbar {
     width: 100%;
-    /* width:1200px; */
     position: fixed;
+    display: grid;
     justify-content: center;
     align-items: center;
-    background-color: #FFFFFF;
-    margin: 0;
-    padding: 0;
+    background-color: #fff;
     z-index: 100;
 }
 
 .navbar-container {
     height: 54px;
-    max-width: 1200px;
+    width: 1200px;
+    /* margin: auto; */
+    background: #fff;
     display: flex;
-    margin: auto;
-    background: #ffffff;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
 }
@@ -37,14 +34,12 @@
     font-weight: 700;
     font-size: 30px;
     color: #448899;
-    margin: 10px 0px 10px 10px;
-    width: 150px;
-    text-align: center;
-
+    /* margin: 10px 0px 10px 10px; */
 }
 
+
 .nav-items-1 {
-    width: 64px;
+    display: inline-block;
     text-align: center;
     margin: 10px -10px 10px auto;
     font-family: 'Noto Sans TC';
@@ -54,7 +49,7 @@
 }
 
 .nav-items-2 {
-    width: 71px;
+    display: inline-block;
     text-align: center;
     margin: 10px 10px 10px 30px;
     font-family: 'Noto Sans TC';
@@ -63,61 +58,44 @@
     color: #666666;
 }
 
-.homebox {
+.nav-box{
+    height: 54px;
+}
+
+.slogan-outter{
+    position: absolute;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
     height: 320px;
 }
-.welcome-box {
-    /* height: 320px; */
-    /* width: 1200px; */
-    background: url("../static/images/welcome.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: grid;
-    align-items: center;
-    justify-content: start;
-    background-position: center 0px;
 
-    /* background-size: Auto Auto; */
-
-    /* grid-template-columns: 1fr 1200px 1fr; */
-    /* overflow: auto; */
-    /* overflow-x: hidden; */
-
-    /* margin-top: 85px; */
+.slogan {
+    width: 1200px;
+    left: 0;
+    top: 0;
 }
 
 
-
-.home-line-1 {
-    font-family: 'Noto Sans TC';
+.slogan-line-1 {
     font-weight: 700;
-    /* font-weight: bold; */
     font-size: 28px;
-    align-items: center;
-    position: relative;
-    top: 85px;
     color: #f8f8f8;
     text-shadow: 0px 0px 30px #aabbcc;
-    padding: 5px;
-    margin-left: 3px;
-    margin-top: 25px;
+    margin-bottom: 15px;
 }
 
-.home-line-2 {
-    position: relative;
-    font-family: 'Noto Sans TC';
+.slogan-line-2 {
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
-    align-items: center;
-    color: #F8F8F8;
-    position: relative;
-    /* left: 0px; */
-    top: 90px;
-    padding: 8px;
-    /* margin-top: -15px; */
+    color: #f8f8f8;
+    margin-bottom: 15px;
 }
 
+
+/* search  */
 .search-input {
     width: 400px;
     height: 46px;
@@ -126,14 +104,11 @@
     font-size: 16px;
     color: #757575;
     align-items: center;
-    margin-top: 100px;
     padding-left: 15px;
     border-radius: 5px 0px 0px 5px;
     border: none;
     display: inline-block !important;
-    margin-left: 8px;
 }
-
 
 .search-btn {
     background: #448899;
@@ -148,6 +123,19 @@
     cursor: pointer;
 
 }
+
+
+.welcome-box {
+    height: 320px;
+    width: 1920px;
+    background: url("../static/images/welcome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    align-items: center;
+    background-position: center 0px;
+}
+
 
 .category-box {
     display: grid;
@@ -179,78 +167,59 @@
 
 }
 
-
 #content {
-    /* width: 1200px; */
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin: 80px 0;
     justify-content: center;
     align-items: center;
     display: grid;
     grid-template-columns: repeat(4, 270px);
-    grid-gap: 30px; 
-  
+    grid-gap: 32px;
 }
 
 .attra-all {
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    grid-template-rows: 1fr 1fr 1fr 1fr; 
-    /* grid-template-columns: 4fr 1fr 1fr; */
-    width: 270px;
-    height: 242px;
+    width: 100%;
     background: #ffffff;
     border: 1px solid #e8e8e8;
     border-radius: 3px;
-    text-decoration: none;
     position: relative;
 }
 
 .img {
-    grid-row: 1/2;
     width: 100%;
-    aspect-ratio: 270/197;
-    object-fit: cover;
-    position: relative;
+    height: 0;
+    padding-bottom: calc(100% * (197 / 270));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 3px 3px 0px 0px;
-    /* background-image: url(../static/images/11000848.webp); */
 }
 
 .attra-name {
-    grid-row: 2/3;
-    /* justify-self: start; */
-    font-size: 16px;
+    font-size: 15px;
     font-family: 'Noto Sans TC';
     color: #FFFFFF;
     text-align: left;
     font-weight: 700;
-    margin-left: 10px;
     align-self: center;
-    opacity: 0.6;
-    background: #000000;
+    background: rgba(0, 0, 0, 0.6);
     position:absolute;
-    width: 270px;
-    height:40px;
-    bottom: 0px;
-    margin:0;
+    width: 100%;
+    height: 40px;
+    bottom: 45px;    
     padding-top: 10px;
     padding-left: 10px;
 }
 
 .attra-sub {
     display: grid;
-    grid-row: 3/4;
-    grid-template-columns: 135px 135px;
     height: 45px;
     padding-top:10px;
     padding-bottom: 10px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 .mrt {
-    grid-column: 1/2;
     font-family: 'Noto Sans TC';
     font-weight: 500;
     font-size: 16px;
@@ -285,21 +254,39 @@
 
 
 @media (max-width: 1200px) {
-    .welcome-box {
-        width:90%;
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        /* background-size: cover;
-        display: grid;
-        align-items: center;
-        justify-content: center; */
+    .navbar-container{
+        width: 100vw;
+    }
+    .slogan-outter{
+        padding-left: 50px;
+    }
+    .slogan{
+        width: 100vw;
+    }
+    .content-box{
+        display: grid !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    #content{
+        align-items: center !important;
+        width: 90vw !important;
+        grid-template-columns: 1fr 1fr;
+    }
+    .attra-all{
+        width: 100% !important;
 
     }
-
-
 }
 
 @media (max-width: 600px) {
+    #content {
+        grid-template-columns: 1fr;
+        
+    }
+    .search-input {
+        width: 230px;
+
+    }
 
 } 
