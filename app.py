@@ -2,6 +2,7 @@ from mysql.connector import errors
 from mysql.connector import pooling
 from flask import *
 import mysql.connector
+from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -68,7 +69,7 @@ def api_attractions():
         connection_object = connection_pool.get_connection()
         mycursor = connection_object.cursor()
 
-        if keyword != None:  # 有keyword，回傳 keyword
+        if keyword != None:  # 有keyword，回傳 keyword 的資料
             mycursor.execute(
                 f'SELECT * FROM spots WHERE category=%s or name like "%{keyword}%" ORDER BY id LIMIT {page_index},12', (keyword,))
             data = mycursor.fetchall()
@@ -76,7 +77,7 @@ def api_attractions():
             # print(data)
 
             if len(data) >= 12:
-                next_page = page+1
+                next_page = page + 1
             else:
                 next_page = None
 
@@ -97,6 +98,7 @@ def api_attractions():
                 # print(result)
 
             final_result = {"nextPage": next_page, "data": return_data}
+            # final_result.headers.add('Access-Control-Allow-Origin', '*')
             return jsonify(final_result)
 
         if keyword == None:  # 沒有keyword，回傳全部資料
@@ -130,6 +132,7 @@ def api_attractions():
                 # print(result)
 
             final_result = {"nextPage": next_page, "data": return_data}
+            # final_result.headers.add('Access-Control-Allow-Origin', '*')
             return jsonify(final_result)
     except:
         return {
@@ -169,6 +172,7 @@ def api_attraction_id(attractionId):
                 "images": eval(data[9])  # string 轉 list, 若 list 裡有 []，可用eval
             }
         }
+        # final_result.headers.add('Access-Control-Allow-Origin', '*')
         return jsonify(final_result)
 
     except TypeError:
@@ -199,6 +203,7 @@ def api_categories():
         mycursor.execute(
             "SELECT category FROM spots GROUP BY category")
         data = mycursor.fetchall()
+        # print(data)
         sorted_data = []
         for x in data:  # 要把list of tuples 用迴圈取出，再append到空的[]裡
             # print(x[0])
@@ -206,6 +211,7 @@ def api_categories():
             result = {
                 "data": sorted_data
             }
+        # result.headers.add('Access-Control-Allow-Origin', '*')
         return jsonify(result)
 
     except:
