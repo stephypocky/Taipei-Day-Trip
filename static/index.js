@@ -1,6 +1,6 @@
 let ct = 0; //設定變數 ct (count)=0
 let keyword = "";
-let page = 0;
+let nextPage = 0;
 let keyword_value = "";
 
 const options = {
@@ -16,9 +16,9 @@ observer.observe(target);
 function callback(entry) {
     if(entry[0].isIntersecting) {
         ct += 1; // ct ++
-        // console.log(ct)
         if(ct>1){
             allAttra(keyword_value);
+            observer.unobserve(target);
         }
     }
 }
@@ -29,9 +29,9 @@ searchCategory();
 let keyword_btn = document.querySelector(".search-btn")
 keyword_btn.addEventListener("click" ,() =>{
     keyword_value=document.querySelector(".search-input").value;
-    document.querySelector("#content").innerHTML=""
-    page = 0;
-    allAttra(keyword_value)
+    document.querySelector("#content").innerHTML="";
+    nextPage = 0;
+    allAttra(keyword_value);
     observer.unobserve(target); //把 observe 關起來，不然 load 完有 keyword 的第0頁後，會再 load 到沒有 keyword 的第0頁
 })
 
@@ -50,7 +50,7 @@ searchInput.addEventListener("click", function(){
             categoryBox.style.visibility = 'hidden';
             document.removeEventListener("click", categoryRemove);
             if(categoryBox.contains(event.target)){
-                showCategory.value= event.target.textContent
+                showCategory.value= event.target.textContent;
             }
         }; 
     });
@@ -65,10 +65,10 @@ function searchCategory(){
             let categoryBox=document.querySelector(".category-box");
             let categoryDiv = document.createElement("DIV");
             categoryDiv.setAttribute("class", "category-div");
-            categoryBox.appendChild(categoryDiv)
+            categoryBox.appendChild(categoryDiv);
 
             let categoryText=document.createTextNode((new String(data[i])));
-            categoryDiv.appendChild(categoryText)
+            categoryDiv.appendChild(categoryText);
         }
 
     });
@@ -78,9 +78,9 @@ function searchCategory(){
 
 function allAttra(keyword) {
     if(keyword){
-        url=`/api/attractions?page=${page}&keyword=${keyword_value}` //抓 keyword 景點資料
+        url=`/api/attractions?page=${nextPage}&keyword=${keyword_value}` //抓 keyword 景點資料
     }else{
-        url=`/api/attractions?page=${page}` //抓全部景點資料
+        url=`/api/attractions?page=${nextPage}` //抓全部景點資料
     }
     fetch(url)
     .then((response) => response.json())
@@ -95,61 +95,13 @@ function allAttra(keyword) {
 
             let noData=document.createTextNode("無景點資料");
             nodataDiv.appendChild(noData);
-            return
+            return;
         }
-        if(data.nextPage == null){
 
-            for(let i=0; i<(data["data"].length); i++){
-                
-                let content = document.querySelector("#content");
-            
-
-                let attraAll = document.createElement("DIV");
-                attraAll.setAttribute("class", "attra-all");
-                content.appendChild(attraAll);
-            
-
-                let imgBox = document.createElement("DIV");
-                imgBox.setAttribute("class", "img");
-                // imgBox.setAttribute("src", new String((data["data"][i]["images"][0])));
-                imgBox.style.cssText = `background-image: url('${data["data"][i]["images"][0]}')`
-                attraAll.appendChild(imgBox);
-            
-        
-                let nameBox = document.createElement("DIV");
-                nameBox.setAttribute("class", "attra-name");
-                attraAll.appendChild(nameBox);
-            
-                let name= document.createTextNode((new String(data["data"][i]["name"])));
-                nameBox.appendChild(name);
-        
-                let attraSub = document.createElement("DIV");
-                attraSub.setAttribute("class", "attra-sub");
-                attraAll.appendChild(attraSub);
-
-                let mrtBox = document.createElement("DIV");
-                mrtBox.setAttribute("class", "mrt");
-                attraSub.appendChild(mrtBox);
-
-                let mrt=document.createTextNode((new String(data["data"][i]["mrt"])));
-                mrtBox.appendChild(mrt);
-    
-
-                let categoryBox = document.createElement("DIV");
-                categoryBox.setAttribute("class", "category");
-                attraSub.appendChild(categoryBox);
-
-                let category=document.createTextNode((new String(data["data"][i]["category"])));
-                categoryBox.appendChild(category);
-            };
-            observer.unobserve(target);
-            return //強制離開此 function allAttra()，不然就會繼續跑下個 if
-        }
-        if(page != null){
+        if(nextPage != null){
             for(let i=0; i<(data["data"].length); i++){
 
                 let content = document.querySelector("#content");
-                // content.appendChild(attraAll);
 
                 let attraAll = document.createElement("DIV");
                 attraAll.setAttribute("class", "attra-all");
@@ -188,8 +140,13 @@ function allAttra(keyword) {
                 let category=document.createTextNode((new String(data["data"][i]["category"])));
                 categoryBox.appendChild(category);
             };
-            page = data["nextPage"];
-            observer.observe(target);//再把observe打開，不然load不到有keyword的下一頁
+            nextPage = data["nextPage"];
+
+            if(nextPage === null){
+                observer.unobserve(target);
+                return;
+            }
+            observer.observe(target); //再把observe打開，不然load不到有keyword的下一頁
         }
     });
 };

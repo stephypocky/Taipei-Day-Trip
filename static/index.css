@@ -307,7 +307,9 @@
     .nav-items-2 {
         margin: 0;
     }
-
+    .category-box {
+        width: 300px;
+    }
     #content {
         grid-template-columns: 1fr;
     }
