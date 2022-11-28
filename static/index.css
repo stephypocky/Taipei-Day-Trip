@@ -1,0 +1,322 @@
+@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC';
+}
+
+/* nav */
+.navbar {
+    width: 100%;
+    position: fixed;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    z-index: 100;
+}
+
+.navbar-container {
+    height: 54px;
+    width: 1200px;
+    /* margin: auto; */
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-title {
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    color: #448899;
+    /* margin: 10px 0px 10px 10px; */
+}
+
+
+.nav-items-1 {
+    display: inline-block;
+    text-align: center;
+    margin: 10px -10px 10px auto;
+    font-family: 'Noto Sans TC';
+    font-weight: 500;
+    font-size: 16px;
+    color: #666666;
+}
+
+.nav-items-2 {
+    display: inline-block;
+    text-align: center;
+    margin: 10px 10px 10px 30px;
+    font-family: 'Noto Sans TC';
+    font-weight: 500;
+    font-size: 16px;
+    color: #666666;
+}
+
+.nav-box{
+    height: 54px;
+}
+
+/* slogan */
+.slogan-outter{
+    position: absolute;
+    /* margin-top:100px; */
+    /* margin-left:100px; */
+    /* left:50%; */
+    width: 100%;
+    /* width:1200px; */
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+    /* height:100vh; */
+}
+
+.slogan {
+    width: 1200px;
+    left: 0;
+    top: 0;
+}
+
+
+.slogan-line-1 {
+    font-weight: 700;
+    font-size: 28px;
+    color: #f8f8f8;
+    text-shadow: 0px 0px 30px #aabbcc;
+    margin-bottom: 15px;
+}
+
+.slogan-line-2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #f8f8f8;
+    margin-bottom: 15px;
+}
+
+
+/* search  */
+.search-input {
+    width: 400px;
+    height: 46px;
+    font-family: "Noto Sans TC";
+    font-weight: 700;
+    font-size: 16px;
+    color: #757575;
+    align-items: center;
+    padding-left: 15px;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    display: inline-block !important;
+}
+
+.search-btn {
+    background: #448899;
+    position: relative;
+    width: 60px;
+    height: 46px;
+    border-radius: 0px 5px 5px 0px;
+    top: 6px;
+    left: -5px;
+    border: none;
+    display: inline-block !important;
+    cursor: pointer;
+
+}
+
+.welcome-box-outter{
+    width: 100%;
+}
+
+.welcome-box {
+    height: 320px;
+    background: url("../static/images/welcome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    align-items: center;
+    background-position: center 0px;
+}
+
+/* category */
+.category-box {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    background: #FFFFFF;
+    width: 400px;
+    box-shadow: 0px 0px 20px #AABBCC;
+    border-radius: 5px;
+    position: absolute;
+    grid-auto-flow: column;
+    opacity: 0; 
+    visibility: hidden;
+    z-index: 50;
+}
+
+.category-div {
+    padding: 11px 15px;
+    width: 90px;
+    /* display: flex; */
+    align-items: center;
+    font-family: 'Noto Sans TC';
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+}
+.category-div:hover{
+    background: #E8E8E8;
+    border-radius: 5px;
+
+}
+
+/* content */
+#content {
+    margin: 80px 0;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 270px);
+    grid-gap: 32px;
+}
+
+.attra-all {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    position: relative;
+}
+
+.img {
+    width: 100%;
+    height: 0;
+    padding-bottom: calc(100% * (197 / 270));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.attra-name {
+    font-size: 15px;
+    font-family: 'Noto Sans TC';
+    color: #FFFFFF;
+    text-align: left;
+    font-weight: 700;
+    align-self: center;
+    background: rgba(0, 0, 0, 0.6);
+    position:absolute;
+    width: 100%;
+    height: 40px;
+    bottom: 45px;    
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.attra-sub {
+    display: grid;
+    height: 45px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mrt {
+    font-family: 'Noto Sans TC';
+    font-weight: 500;
+    font-size: 16px;
+    color: #757575;
+    justify-self: start;
+    margin-left: 10px;
+
+}
+
+.category {
+    grid-column: 2/3;
+    font-family: 'Noto Sans TC';
+    font-weight: 500;
+    font-size: 16px;
+    color: #757575;
+    justify-self: end;
+    margin-right: 10px;
+}
+
+#footer {
+    grid-area: footer;
+    height: 104px;
+    font-family: 'Noto Sans TC';
+    font-weight: 700;
+    font-size: 16px;
+    background: #757575;
+    color: #FFFFFF;
+    text-align: center;
+    justify-content: center;
+    padding: 45px 0px 45px 0px;
+}
+
+
+@media (max-width: 1200px) {
+    .navbar-container{
+        width: 100vw;
+    }
+    .slogan-outter{
+        justify-content: start;
+        padding-left: 50px;
+    }
+    .slogan{
+        width: 500px;
+    }
+
+    .content-box{
+        display: grid !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    #content{
+        align-items: center !important;
+        width: 90vw !important;
+        grid-template-columns: 1fr 1fr;
+    }
+    .attra-all{
+        width: 100% !important;
+
+    }
+}
+
+@media (max-width: 600px) {
+    /* .wrapper{
+        overflow: hidden;
+    } */
+    .navbar{
+        width: 100vw;
+    }
+    .slogan-outter {
+        padding-left: 20px;
+    }
+    .nav-items-1 {
+        margin: 0;
+    }
+
+    .nav-items-2 {
+        margin: 0;
+    }
+    .category-box {
+        width: 300px;
+    }
+    #content {
+        grid-template-columns: 1fr;
+    }
+    .slogan {
+        width: 310px;
+    }
+    .search-input {
+        width: 230px;
+    }
+} 

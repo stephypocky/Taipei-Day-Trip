@@ -52,7 +52,7 @@ for data_list in data:
     latitude = data_list["latitude"]
     longitude = data_list["longitude"]
     raw_image = data_list["file"].split("https")
-    # print(rawImage)
+    # print(raw＿image)
     sorted_image = []
     for url in raw_image:
         if url.endswith(".jpg") or url.endswith(".JPG"):
