@@ -4,9 +4,9 @@ let nextPage = 0;
 let keyword_value = "";
 
 const options = {
-  root: null, //沒有指定就指windows
-  rootMargin: "1px",
-  threshold: 0.5,
+    root: null, //沒有指定就指windows
+    rootMargin: "1px",
+    threshold: 0.5,
 };
 
 let observer = new IntersectionObserver(callback, options);
@@ -50,7 +50,10 @@ searchInput.addEventListener("click", function(){
             categoryBox.style.visibility = 'hidden';
             document.removeEventListener("click", categoryRemove);
             if(categoryBox.contains(event.target)){
-                showCategory.value= event.target.textContent;
+                let html = event.target.innerHTML   
+                if(!html.trim().startsWith("<!--")){
+                    showCategory.value= event.target.textContent;
+                }
             }
         }; 
     });
@@ -70,9 +73,7 @@ function searchCategory(){
             let categoryText=document.createTextNode((new String(data[i])));
             categoryDiv.appendChild(categoryText);
         }
-
     });
-
 };
  
 
@@ -103,8 +104,9 @@ function allAttra(keyword) {
 
                 let content = document.querySelector("#content");
 
-                let attraAll = document.createElement("DIV");
+                let attraAll = document.createElement("a");
                 attraAll.setAttribute("class", "attra-all");
+                attraAll.setAttribute("href", `/attraction/${data["data"][i]["id"]}`)
                 content.appendChild(attraAll);
 
                 let imgBox = document.createElement("DIV");

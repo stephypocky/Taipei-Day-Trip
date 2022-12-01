@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北一日遊 景點</title>
+    <link rel="stylesheet" href="../static/attraction.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="navbar">
+            <nav class="navbar-container">
+                <div class="nav-title">台北一日遊</div>
+                <div class="nav-items-box">
+                    <div class="nav-items-1">預定行程</div>
+                    <div class="nav-items-2">登入/註冊</div>
+                </div>
+            </nav>
+        </div>
+        <div class="nav-box"></div>
+    </div>
+    <main class="attraction-main">
+        <div class="attraction-top">
+            <div class="left-box">
+                <div class="arrow-box">
+                    <a><img class="left-arrow" src="../static/images/btn_leftArrow.png" alt=""></a>
+                    <a><img class="right-arrow" src="../static/images/btn_rightArrow.png" alt=""></a>
+                </div>
+                <img class="attracion-images">
+                <div class="carousel-circle">
+                        <!-- <div class="white-circle black"></div>
+                        <div class="white-circle"></div> -->
+                </div>
+            </div>
+            <div class="right-box">
+                <div class="attraction-name"></div>
+                <div class="attraction-info"></div>
+                <div class="booking">
+                    <div class="text-title">訂購導覽行程</div>
+                    <div>以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                    <div class="booking-date">
+                        <div class="text-line">選擇日期：
+                            <input type="date" id="choose_date" />
+                        </div>
+                    </div>
+                    <div class="booking-time">
+                        <div class="text-line">選擇時間：</div>
+                        <div class="day-time">
+                            <input type="radio" name="time" value="day" id="daytime" checked  />上半天 
+                        </div>
+                        <div class="night-time">
+                            <input type="radio" name="time" value="night"id="nightime"  />下半天
+                        </div>
+                    </div>
+                    <div class="booking-price">
+                        <div class="text-line">導覽費用：<span>新台幣 <span class="price"> 2000</span> 元</span></div>
+                    </div>
+                    <button class="booking-btn">開始預約行程</button>
+                </div>
+            </div>
+        </div>
+        <div class="attraction-bottom">
+            <hr style="border: 1px solid #E8E8E8">
+            <div class="description"></div>
+            <div class="text-line">景點地址：</div>
+            <div class="address"></div>
+            <div class="text-line">交通方式：</div>
+            <div class="transportation"></div>
+        </div>
+    </main>
+    
+       <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer> 
+    
+    <script src="../static/attraction.js"></script>
+</body>
+</html>
