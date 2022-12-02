@@ -90,6 +90,7 @@
     position: relative;
     bottom: 40px;
     border-radius: 5px;
+    object-fit:cover;
 }
 
 /* arrow */
