@@ -1,0 +1,163 @@
+.member {
+    z-index: 20;
+    position: fixed;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.signin {
+    color: #666666;
+    border-radius: 6px;
+    background: #ffffff;
+    width: 340px;
+    height: 100%;
+    position: relative;
+    padding-bottom: 10px;
+    margin: 20px auto;
+    display:grid;
+    display: none;
+    box-shadow: 0px 4px 60px;
+    
+}
+ 
+.signin::after{
+    content:"";
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    top:0%;
+    left: 0px;
+    border-radius: 6px 6px 0 0;
+    z-index: 10;
+}
+
+/* .signin::before {
+    content:"";
+    background-color: black;
+    opacity: 0.5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+} */
+
+.signin-title {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 24px;
+    position:relative;
+    top:20px;
+}
+
+.close-tag {
+    position: absolute;
+    bottom: 18px;
+    right: 15px;
+    color: #666666;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.success-signin {
+    display: none;
+}
+
+/* .fail-signin {
+    display: none;
+} */
+
+.member form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member form>input {
+    width: 90%;
+    height: 47px;
+    margin: 8px;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.member form>button {
+    width: 90%;
+    height: 53px;
+    margin: 8px;
+    background: #448899;
+    border-radius: 5px;
+    font-size: 19px;
+    color: #ffffff;
+    border-style: none;
+    cursor: pointer;
+}
+
+.member form>p {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 5px;
+}
+
+.direct-signup{
+    cursor: pointer;
+}
+
+.signup {
+    font-family: "Noto Sans TC";
+    color: #666666;
+    border-radius: 5px;
+    background: #ffffff;
+    width: 340px;
+    height: auto;
+    position: relative;
+    bottom:30px;
+    margin: 20px auto;
+    /* padding-bottom: 0px; */
+    display: grid;
+    display: none;
+    box-shadow: 0px 4px 60px;
+    border-radius: 6px;
+    padding-bottom: 10px;
+    
+}
+
+.signup::before {
+    content: "";
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0px;
+    border-radius: 6px 6px 0 0;
+}
+
+.signup-title {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 24px;
+    position: relative;
+    top: 20px;
+}
+        
+.failSignup {
+    display: none;
+}
+
+.success-signup {
+    display: none;
+}
+
+.success-signup-message {
+    display:block;
+}
+.direct-signin{
+    cursor: pointer;
+}
