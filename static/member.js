@@ -15,15 +15,28 @@ function showSignin(){
 // ------- 點擊 x，關閉登入頁面 -------
 
 function closeSignin() {
+    let signinemail = document.querySelector(".signin-email");
+    let signinpassowrd = document.querySelector(".signin-password");
+
     signin.style.display= "none";
     blackShadow.style.display = "none";
+    signinemail.value="";
+    signinpassowrd.value="";
+
 };
 
 // ------- 點擊 x，關閉註冊頁面 -------
 
 function closeSignup() {
+    let username = document.getElementsByName("username")[0];
+    let email = document.getElementsByName("email")[1];
+    let password = document.getElementsByName("password")[1];
+
     signup.style.display = "none";
     blackShadow.style.display = "none";
+    username.value = "";
+    email.value = "";
+    password.value = "";
 };
 
 // ------- 登入成功後，註冊和登入表格都關閉 -------
@@ -56,13 +69,13 @@ const signupFrom = document.querySelector(".signup-form")
 signupFrom.addEventListener("submit", function(event) {
     event.preventDefault(); //event.preventDefault(), Clicking on a "Submit" button, prevent it from submitting a form
     // console.log("123");
-    let username = document.getElementsByName("username")[0].value;
-    let email = document.getElementsByName("email")[1].value;
-    let password = document.getElementsByName("password")[1].value;
+    let username = document.getElementsByName("username")[0];
+    let email = document.getElementsByName("email")[1];
+    let password = document.getElementsByName("password")[1];
     let data= {
-        username: username,
-        email: email,
-        password: password,
+        username: username.value,
+        email: email.value,
+        password: password.value,
     };
     // console.log(data)
     fetch(`/api/user`,{
@@ -75,15 +88,20 @@ signupFrom.addEventListener("submit", function(event) {
         if("ok" in data){
             let successSignup = document.querySelector(".success-signup");
             successSignup.style.display = "block";
+            username.value = "";
+            email.value = "";
+            password.value = "";
             setTimeout(()=>{
                 successSignup.style.display = "none";
             },2000)
         } else {
             let failSignup = document.querySelector(".fail-signup");
             let successSignupMessage = document.querySelector(".success-signup-message");
-
-            failSignup.innerHTML="註冊失敗";
-            successSignupMessage.style.display = "none";
+            failSignup.innerHTML=data.message;
+            setTimeout(()=>{
+                failSignup.innerHTML="";
+            },2000)
+            
         }
     });
 })

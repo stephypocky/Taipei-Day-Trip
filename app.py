@@ -254,7 +254,7 @@ def signup():
         if myresult != None:
             return {
                 "error": True,
-                "message": "註冊失敗，重複的 Email 或其他原因"
+                "message": "註冊失敗，重複的 Email  "
             }, 400
 
         else:
