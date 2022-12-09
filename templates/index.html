@@ -7,17 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>台北一日遊</title>
     <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" href="../static/member.css">
+    <link rel="stylesheet" href="../static/attraction.css">
 </head>
 </head>
 
 <body>
     <div class="wrapper">
+        <div class="black-shadow"></div>
         <div class="navbar">
             <nav class="navbar-container">
                 <div class="nav-title"><a style="text-decoration: none; color: #448899;" href="/">台北一日遊</a></div>
                 <div class="nav-items-box">
                     <div class="nav-items-1">預定行程</div>
-                    <div class="nav-items-2">登入/註冊</div>
+                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()" id="signinnav">登入/註冊</a></div>
+                    <!-- <div class="nav-items-3"><a style="text-decoration: none; color:#666666;" onclick="signout()"  id="signoutnav">登出系統</a></div> -->
                 </div>
             </nav>
         </div>
@@ -43,9 +47,42 @@
                 </div>
             </div>
         </div>
+        <div class="member">
+            <div class="signin">
+                <h3 class="signin-title">登入會員帳號
+                    <!-- <div><a class="close-tag" style="text-decoration: none; color:#666666;" onclick="closeSignin()">x</a></div> -->
+                    <div><img class="close-tag" onclick="closeSignin()" src="../static/images/icon_close.png" ></div>
+                </h3>
+                <form class="signin-form">
+                    <input type="text" placeholder="輸入電子信箱" name="email" class="signin-email" required>
+                    <input type="password" placeholder="輸入密碼" name="password" class="signin-password" required>
+                    <button type="submit">登入帳戶</button>
+                    <p class="fail-signin"></p>
+                    <!-- <p class="success-signin">登入成功</p> -->
+                    <p>還沒有帳戶？點此<span class="direct-signup" onclick="directSignup()">註冊</span></p>
+                </form>
+            </div>
+            <br>
+            <div class="signup">
+                <h3 class="signup-title">註冊會員帳號
+                    <!-- <div><a class="close-tag" style="text-decoration: none; color:#666666;" onclick="closeSignup()">x</a></div> -->
+                    <div><img class="close-tag" onclick="closeSignup()" src="../static/images/icon_close.png"></div>
+                </h3>
+                <form class="signup-form">
+                    <input type="text" placeholder="輸入姓名" name="username" required>
+                    <input type="text" placeholder="輸入電子郵件" name="email" required>
+                    <input type="password" placeholder="輸入密碼" name="password" required>
+                    <button class="signup-button" type="submit">註冊新帳戶</button>
+                    <p class="fail-signup"></p>
+                    <p class="success-signup">註冊成功</p>
+                    <p class="success-signup-message">已經有帳戶了？<span class="direct-signin" onclick="directSignin()">點此登入</span></p>
+                </form>
+            </div>
+        </div>
         <div class="welcome-box-outter">
             <div class="welcome-box"></div>
         </div>
+    
         <div class="content-box">
             <div id="content">
                 <!-- <div class="attra-all">
@@ -65,6 +102,7 @@
 
     </div>
     <script src="../static/index.js"></script>
+    <script src="../static/member.js"></script>
 </body>
 
 </html>
