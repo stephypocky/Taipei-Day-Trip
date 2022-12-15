@@ -26,11 +26,11 @@ function getBookingStatus(){
             // noneOrder.style.display="block";
             bookingcontainer.textContent = "目前沒有任何待預訂的行程";
             bookingcontainer.style =" margin: 30px auto";
-            document.querySelector("body").style.backgroundColor = "#757575";
-            document.querySelector("main").style.backgroundColor = "#ffffff";
-            document.querySelector(".nav-box").style.backgroundColor = "#ffffff";
-            // footer.style = 'padding-bottom: 865px';
-            
+            // document.querySelector("body").style.backgroundColor = "#757575";
+            // document.querySelector("booking-main").style.backgroundColor = "#ffffff";
+            // document.querySelector(".nav-box").style.backgroundColor = "#ffffff";
+            footer.style = "height: 100vh; position:fixed; width:100%";
+            // footer.style = "padding-bottom: 450px";
 
         } else {
 
