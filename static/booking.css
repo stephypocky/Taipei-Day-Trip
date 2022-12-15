@@ -1,0 +1,227 @@
+
+.booking-main {
+    padding-top: 42px;
+    padding-bottom: 30px;
+    color: #666666;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1200px;
+    width: 100%;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.booking-greeting {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+.booking-info-box{
+    display: flex;
+    max-width: 1200px;
+}
+
+/* div.booking-info-all {
+    height: 200px;
+    text-align: center;
+} */
+
+.booking-img-box {
+    width: 380px;
+    height: 200px;
+}
+
+#booking-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#booking-info {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#booking-delete {
+    cursor: pointer;
+}
+
+.booking-attra-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #448899;
+    margin-bottom: 20px;
+}
+
+.booking-attra-text {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px auto;
+}
+
+.booking-attra-span {
+    font-weight: 100;
+}
+
+.order-info {
+    margin-top: 30px;
+}
+
+.card-info {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+.order-title {
+    font-weight: 700;
+    font-size: 19px;
+    margin-bottom: 25px;
+}
+
+.order-info input {
+    width: 200px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 38px;
+    padding: 0px 5px;
+}
+
+.card-info input {
+    width: 200px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 38px;
+    padding: 0px 5px;
+}
+
+/* .type-detail {
+    width: 180px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    height: 27px;
+    padding-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+} */
+
+.order-input-box {
+    margin: 10px auto;
+}
+
+.order-input-box {
+    margin: 10px auto;
+}
+
+.order-info label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.card-info label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.reminder {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 20px auto 45px auto;
+}
+
+.booking-conclude * {
+    margin-left: auto;
+    margin-bottom: 30px;   
+
+}
+
+.total-amount {
+    font-size: 16px;
+    font-weight: 700;
+    width: 157px;
+    margin: 20px 0px 10px auto;
+    
+}
+
+.confirm-btn {
+    display: block;
+    background: #448899;
+    width: 173px;
+    height: 36px;
+    border-radius: 5px;
+    /* padding: 8px 10px; */
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+.confirm-btn:hover {
+    transform: translate(2px, 2px);
+}
+
+.none-order {
+    margin: 30px auto;
+    display: none;
+}
+
+#order_number {
+    font-family: "Noto Sans TC";
+    font-size: bold;
+    color: #126d9a;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+    .booking-main {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .booking-info-box {
+        width: 100%;
+        margin: auto;
+    }
+
+    div.booking {
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .booking-main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .booking-info-box{
+        flex-wrap: wrap;
+    }
+
+   .booking-img-box {
+        width: 100%;
+    }
+
+    #booking-info {
+        width: 100%;
+        padding: 20px 0px;
+        margin-bottom: 30px;
+    }
+
+    #booking-delete {
+        margin-left: auto;
+    }
+}

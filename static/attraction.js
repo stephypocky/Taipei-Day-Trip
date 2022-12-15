@@ -72,14 +72,22 @@ fetch(`/api/attraction/${id}`)
 let daytime=document.querySelector("#daytime");
 let nightime=document.querySelector("#nightime");
 let bookingfee=document.querySelector(".price");
+let selectTime=document.querySelector(".select-time");
 
 function selectFee(){
     daytime.addEventListener("click", function(){
         bookingfee.textContent="2000";
+        // daytime.value="morning";
+        selectTime.value="morning";
+        // bookingfee.attractionTime="morning"
+        
     });
 
     nightime.addEventListener("click", function(){
         bookingfee.textContent="2500";
+        // nightime.value="afternoon";
+        selectTime.value="afternoon";
+        // bookingfee.attractionTime="afternoon"
     });
 };
 
@@ -108,3 +116,54 @@ function getInfo(data){
     let transportationText=data["data"]["transport"]; 
     transportation.textContent=transportationText;
 }
+
+
+//------- 檢查登入狀態+取得行程資料 ------- 
+
+let bookingForm = document.querySelector(".booking-form");
+
+bookingForm.addEventListener("submit", function(event){
+    event.preventDefault();
+    fetch(`/api/user/auth`, {
+    method: "GET",
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        let memberData = data["data"];
+        // console.log(memberData);
+        if (memberData !== null) {
+            let url=window.location.href
+            let attraction_id =url.split("/attraction/")[1];
+            // console.log(attraction_id);
+
+            let date = document.querySelector("#choose_date").value;
+            // console.log(date)
+
+            // let attractionTime = document.querySelector(".price").attractionTime;
+            // console.log(attractionTime);
+            let attractionTime = document.querySelector('input[name="time"]').value;
+            // console.log(attractionTime);
+
+            let price = document.querySelector(".price").innerText;
+            // console.log(price)
+            let bookingInfo = {
+            attraction_id: attraction_id,
+            date: date,
+            time: attractionTime,
+            price: price,
+            };
+            // console.log(bookingInfo)
+            fetch(`/api/booking`, {
+                method: "POST",
+                headers: new Headers({ "Content-Type": "application/json" }),
+                body: JSON.stringify(bookingInfo)
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                window.location.href = "/booking";
+            });
+        } else {
+            showSignin();
+        }
+    });
+});
