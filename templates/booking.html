@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北一日遊</title>
+    <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" href="../static/member.css">
+    <link rel="stylesheet" href="../static/attraction.css">
+    <link rel="stylesheet" href="../static/booking.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="black-shadow"></div>
+        <div class="navbar">
+            <nav class="navbar-container">
+                <div class="nav-title"><a style="text-decoration: none; color: #448899;" href="/">台北一日遊</a></div>
+                <div class="nav-items-box">
+                    <div class="nav-items-1"><a style="text-decoration: none; color:#666666;" onclick="connectBooking()" id="navbooking">預定行程</a></div>
+                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()" id="signinnav">登入/註冊</a></div>
+                    <!-- <div class="nav-items-3"><a style="text-decoration: none; color:#666666;" onclick="signout()"  id="signoutnav">登出系統</a></div> -->
+                </div>
+            </nav>
+        </div>
+        <div class="nav-box"></div>
+
+        <div class="member">
+            <div class="signin">
+                <h3 class="signin-title">登入會員帳號
+                    <!-- <div><a class="close-tag" style="text-decoration: none; color:#666666;" onclick="closeSignin()">x</a></div> -->
+                    <div><img class="close-tag" onclick="closeSignin()" src="../static/images/icon_close.png"></div>
+                </h3>
+                <form class="signin-form">
+                    <input type="text" placeholder="輸入電子信箱" name="email" class="signin-email" required>
+                    <input type="password" placeholder="輸入密碼" name="password" class="signin-password" required>
+                    <button type="submit">登入帳戶</button>
+                    <p class="fail-signin"></p>
+                    <!-- <p class="success-signin">登入成功</p> -->
+                    <p>還沒有帳戶？點此<span class="direct-signup" onclick="directSignup()">註冊</span></p>
+                </form>
+            </div>
+            <br>
+            <div class="signup">
+                <h3 class="signup-title">註冊會員帳號
+                    <!-- <div><a class="close-tag" style="text-decoration: none; color:#666666;" onclick="closeSignup()">x</a></div> -->
+                    <div><img class="close-tag" onclick="closeSignup()" src="../static/images/icon_close.png"></div>
+                </h3>
+                <form class="signup-form">
+                    <input type="text" placeholder="輸入姓名" name="username" required>
+                    <input type="text" placeholder="輸入電子郵件" name="email" required>
+                    <input type="password" placeholder="輸入密碼" name="password" required>
+                    <button class="signup-button" type="submit">註冊新帳戶</button>
+                    <p class="fail-signup"></p>
+                    <p class="success-signup">註冊成功</p>
+                    <p class="success-signup-message">已經有帳戶了？<span class="direct-signin"
+                            onclick="directSignin()">點此登入</span></p>
+                </form>
+            </div>
+        </div>
+
+    <main class="booking-main">
+        <div class="booking-greeting">您好，<span id="booking-name"></span>，待預定的行程如下:</div>
+        <div class="booking-container">
+            <div class="booking-info-all">
+                <div class="booking-info-box">
+                    <div class="booking-img-box">
+                        <img id="booking-img"></img>
+                    </div>
+                    <div id="booking-info"></div>
+                    <div id="booking-delete"><img src="../static/images/icon_delete.png" /></div>
+                </div>
+            </div>
+            <hr style="border: 1px solid #E8E8E8">
+            <!-- <div class="separate_line"></div> -->
+            <form class="order">
+                <div class="order-info">
+                    <div class="order-title">您的聯絡資訊</div>
+                    <div class="order-input-box">
+                        <label for="contact_name">聯絡姓名：</label>
+                        <input type="text" id="contact-name" name="contact-name" required>
+                    </div>
+                    <div class="order-input-box">
+                        <label for="booking_email">聯絡信箱：</label>
+                        <input type="text" id="booking-email" name="booking-email" required>
+                    </div>
+                    <div class="order-input-box">
+                        <label for="phone">手機號碼：</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div class="order-input-box">
+                    <div class="reminder">請保持手機通暢，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                </div>
+                <hr style="border: 1px solid #E8E8E8">
+                <div class="card-info">
+                    <div class="order-title">信用卡付款資訊</div>
+                    <div class="order-input-box card-number-group">
+                        <label for="credit ">卡片號碼：</label>
+                        <input type="text" placeholder="**** **** **** ****"required>
+                        <!-- <div class="type-detail" id="card-number"></div> -->
+                    </div>
+                    <div class="order-input-box expiration-date-group">
+                        <label for="expiration">過期時間：</label>
+                        <input type="text" placeholder="MM / YY" required>
+                        <!-- <div class="type-detail" id="card-expiration-date"></div> -->
+                    </div>
+                    <div class="order-input-box cvc-group">
+                        <label for="CVV">驗證密碼：</label>
+                        <input type="password" placeholder="CVV" required>
+                        <!-- <div class="type-detail" id="card-ccv"></div> -->
+                    </div>
+                </div>
+                <hr style="border: 1px solid #E8E8E8">
+                <!-- <div class="separate_line"></div> -->
+                <div class="booking-conclude">
+                    <div class="total-amount"></div>
+                    <button type="submit" class="confirm-btn" >確認訂購並付款</button>
+                </div>
+            </form>
+        </div>
+        <!-- <p class="none-order">目前沒有任何待預訂的行程</p> -->
+    </main>
+
+        <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer>
+
+    </div>
+    <!-- <script src="../static/index.js"></script> -->
+    <script src="../static/member.js"></script>
+    <!-- <script src="../static/attraction.js"></script> -->
+    <script src="../static/booking.js"></script>
+</body>
+
+</html>

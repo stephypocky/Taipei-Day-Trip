@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="../static/member.css">
     <link rel="stylesheet" href="../static/attraction.css">
 </head>
-</head>
-
 <body>
     <div class="wrapper">
         <div class="black-shadow"></div>
@@ -19,7 +17,7 @@
             <nav class="navbar-container">
                 <div class="nav-title"><a style="text-decoration: none; color: #448899;" href="/">台北一日遊</a></div>
                 <div class="nav-items-box">
-                    <div class="nav-items-1">預定行程</div>
+                    <div class="nav-items-1"><a style="text-decoration: none; color:#666666;" onclick="connectBooking()" id="navbooking">預定行程</a></div>
                     <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()" id="signinnav">登入/註冊</a></div>
                     <!-- <div class="nav-items-3"><a style="text-decoration: none; color:#666666;" onclick="signout()"  id="signoutnav">登出系統</a></div> -->
                 </div>
@@ -103,6 +101,7 @@
     </div>
     <script src="../static/index.js"></script>
     <script src="../static/member.js"></script>
+    <!-- <script src="../static/booking.js"></script> -->
 </body>
 
 </html>

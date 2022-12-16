@@ -9,7 +9,6 @@ const blackShadow = document.querySelector(".black-shadow");
 function showSignin(){
     signin.style.display= "block";
     blackShadow.style.display = "block";
-
 };
 
 // ------- 點擊 x，關閉登入頁面 -------
@@ -22,7 +21,6 @@ function closeSignin() {
     blackShadow.style.display = "none";
     signinemail.value="";
     signinpassowrd.value="";
-
 };
 
 // ------- 點擊 x，關閉註冊頁面 -------
@@ -45,8 +43,6 @@ function closeBothForm(){
     signup.style.display = "none";
 };
 
-
-
 // ------- 點擊 註冊，跳轉註冊頁面 -------
 
 function directSignup(){
@@ -59,8 +55,20 @@ function directSignup(){
 function directSignin(){
     signup.style.display = "none";
     signin.style.display = "block";
-
 }
+
+//--------- navbar 預定行程  ------
+let navBooking = document.querySelector("#navbooking");
+let cookie = document.cookie;
+// console.log(cookie)
+function connectBooking() {
+	if (cookie == '') {
+		showSignin();
+	} else {
+		location.href = '/booking';
+	}
+}
+
 
 // ------- 註冊 ------- 
 
@@ -96,12 +104,10 @@ signupFrom.addEventListener("submit", function(event) {
             },2000)
         } else {
             let failSignup = document.querySelector(".fail-signup");
-            let successSignupMessage = document.querySelector(".success-signup-message");
             failSignup.innerHTML=data.message;
             setTimeout(()=>{
                 failSignup.innerHTML="";
             },2000)
-            
         }
     });
 })
@@ -110,8 +116,8 @@ signupFrom.addEventListener("submit", function(event) {
  
 const signinForm = document.querySelector(".signin-form")
 
-signinForm.addEventListener("submit", function(ev) {
-    ev.preventDefault();
+signinForm.addEventListener("submit", function(event) {
+    event.preventDefault();
     let signinemail = document.querySelector(".signin-email").value;
     // console.log(signinemail)
     let signinpassowrd = document.querySelector(".signin-password").value;
@@ -139,7 +145,6 @@ signinForm.addEventListener("submit", function(ev) {
             }, 2000)
         }
     });
-
 });
 
 // ------- 檢查會員登入狀態 ------- 
@@ -163,6 +168,7 @@ function userStatus(){
     });
 }
 
+userStatus();
 // ------- 登出 ------- 
 
 function logout(){
@@ -179,4 +185,4 @@ function logout(){
     });
 }   
 
-userStatus();
+

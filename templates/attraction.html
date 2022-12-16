@@ -16,9 +16,8 @@
             <nav class="navbar-container">
                 <div class="nav-title"><a style="text-decoration: none; color: #448899;" href="/">台北一日遊</a></div>
                 <div class="nav-items-box">
-                    <div class="nav-items-1">預定行程</div>
-                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()"
-                            id="signinnav">登入/註冊</a></div>
+                    <div class="nav-items-1"><a style="text-decoration: none; color:#666666;" onclick="connectBooking()" id="navbooking">預定行程</a></div>
+                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()" id="signinnav">登入/註冊</a></div>
                     <!-- <div class="nav-items-3"><a style="text-decoration: none; color:#666666;" onclick="signout()"  id="signoutnav">登出系統</a></div> -->
                 </div>
             </nav>
@@ -75,7 +74,7 @@
             <div class="right-box">
                 <div class="attraction-name"></div>
                 <div class="attraction-info"></div>
-                <div class="booking">
+                <form class="booking-form">
                     <div class="text-title">訂購導覽行程</div>
                     <div>以此景點為中心的一日行程，帶您探索城市角落故事</div>
                     <div class="booking-date">
@@ -86,17 +85,17 @@
                     <div class="booking-time">
                         <div class="text-line">選擇時間：</div>
                         <div class="day-time">
-                            <input type="radio" name="time" value="day" id="daytime" checked  />上半天 
+                            <input type="radio" name="time" value="morning" class="select-time" id="daytime" checked  />上半天 
                         </div>
                         <div class="night-time">
-                            <input type="radio" name="time" value="night"id="nightime"  />下半天
+                            <input type="radio" name="time" value="afternoon" class="select-time" id="nightime"  />下半天
                         </div>
                     </div>
                     <div class="booking-price">
-                        <div class="text-line">導覽費用：<span>新台幣 <span class="price"> 2000</span> 元</span></div>
+                        <div class="text-line">導覽費用：<span>新台幣 <span attractionTime="morning" class="price" id="select-price"> 2000</span> 元</span></div>
                     </div>
                     <button class="booking-btn">開始預約行程</button>
-                </div>
+                </form>
             </div>
         </div>
         <div class="attraction-bottom">
@@ -112,6 +111,7 @@
        <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer> 
     
     <script src="../static/attraction.js"></script>
+    <!-- <script src="../static/booking.js"></script> -->
     <script src="../static/member.js"></script>
 </body>
 </html>

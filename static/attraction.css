@@ -182,10 +182,10 @@
     color: #666666;
 }
 
-.booking {
+.booking-form {
     grid-row: 3/4;
     display: grid;
-    width: 600px;
+    /* width: 600px; */
     background: #E8E8E8;
     border-radius: 5px;
     padding-top: 15px;
