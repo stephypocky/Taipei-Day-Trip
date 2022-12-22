@@ -54,7 +54,6 @@ def make_payment():
             token = jwt.decode(JWT_cookie, key, algorithms="HS256")
             data = request.get_json()
             phone = data["order"]["contact"]["phone"]
-            # print(phone)
 
             if not phone:
                 return {"error": True, "message": "電話號碼未填寫"}, 400
@@ -62,9 +61,7 @@ def make_payment():
             # print(data)
             member_id = token["id"]
             username = data["order"]["contact"]["name"]
-            print(username)
             email = data["order"]["contact"]["email"]
-            print(email)
 
             price = int(data["order"]["price"])
             date = data["order"]["trip"]["date"]
@@ -171,7 +168,7 @@ def make_payment():
 @order.route("/api/order/<orderNumber>", methods=["GET"])
 def get_order(orderNumber):
     connection_object = connection_pool.get_connection()
-    mycursor = connection_object.cursor()
+    mycursor = connection_object.cursor(buffered=True)
     JWT_cookie = request.cookies.get("token")
     try:
         if JWT_cookie:
