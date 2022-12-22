@@ -4,8 +4,10 @@ from flask import *
 from api.attraction import attraction
 from api.booking import booking
 from api.member import member
+from api.order import order
 import mysql.connector
 import jwt
+import requests
 import time
 from datetime import datetime, timedelta
 from flask_cors import CORS
@@ -23,23 +25,24 @@ headers = {
 }
 
 # JWT key
-key = '_5#y2L"F4Q8z\nc]/'
+key = os.getenv("jwt_key")
 
 
 app = Flask(__name__)
 app.register_blueprint(booking)
 app.register_blueprint(attraction)
 app.register_blueprint(member)
-app.secret_key = '_5#y2L"F4Q8z\nc]/'
+app.register_blueprint(order)
+app.secret_key = os.getenv("app.secret_key")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["JSON_SORT_KEYS"] = False
 
 dbconfig = {
-    "user": "root",
+    "user":  os.getenv("user"),
     "password": os.getenv("password"),
-    "host": "localhost",
-    "database": "taipei_attractions"
+    "host": os.getenv("host"),
+    "database": os.getenv("database")
 }
 
 # ------- Get connection object from a pool -------
