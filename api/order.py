@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import os
+import base64
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -48,17 +49,23 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool"
 @order.route("/api/orders", methods=["POST"])
 def make_payment():
     try:
-        connection_object = connection_pool.get_connection()
-        mycursor = connection_object.cursor()
         JWT_cookie = request.cookies.get("token")
         if JWT_cookie:
             token = jwt.decode(JWT_cookie, key, algorithms="HS256")
             data = request.get_json()
+            phone = data["order"]["contact"]["phone"]
+            # print(phone)
+
+            if not phone:
+                return {"error": True, "message": "電話號碼未填寫"}, 400
+
             # print(data)
             member_id = token["id"]
-            username = token["username"]
-            email = token["email"]
-            phone = data["order"]["contact"]["phone"]
+            username = data["order"]["contact"]["name"]
+            print(username)
+            email = data["order"]["contact"]["email"]
+            print(email)
+
             price = int(data["order"]["price"])
             date = data["order"]["trip"]["date"]
             time = data["order"]["trip"]["time"]
@@ -84,7 +91,7 @@ def make_payment():
                 "currency": "TWD",
                 "cardholder": {
                     "phone_number": phone,
-                    "name": username,
+                    "name": base64.b64encode(username.encode("utf-8")).decode("ascii"),
                     "email": email,
                 },
                 "remember": True
@@ -97,28 +104,56 @@ def make_payment():
             status = tappay_result["status"]
             msg = tappay_result["msg"]
 
-            if tappay_result["status"] == 0:  # 付款成功
-                mycursor.execute(
-                    "INSERT INTO orders (order_number, price, status, attraction_id, attraction_name, date, time, contact_name,  contact_email, contact_phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (order_number, price, status, attraction_id,
-                     attraction_name,  date, time, username, email, phone)
-                )
-                connection_object.commit()
+            try:
+                connection_object = connection_pool.get_connection()
+                mycursor = connection_object.cursor(buffered=True)
 
-                mycursor.execute(
-                    "DELETE FROM booking WHERE email=%s", (email,))  # 付款成功後，把資料從 booking 資料表中刪除
-                connection_object.commit()
-                return {
-                    "data": {
-                        "number": order_number,
-                        "payment": {
-                            "status": tappay_result["status"],
-                            "message": msg
+                if tappay_result["status"] == 0:  # 付款成功
+                    mycursor.execute(
+                        "INSERT INTO orders (order_number, price, status, attraction_id, attraction_name, date, time, contact_name,  contact_email, contact_phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                        (order_number, price, status, attraction_id,
+                         attraction_name,  date, time, username, email, phone)
+                    )
+                    connection_object.commit()
+
+                    mycursor.execute(
+                        "DELETE FROM booking WHERE email=%s", (email,))  # 付款成功後，把資料從 booking 資料表中刪除
+                    connection_object.commit()
+                    return {
+                        "data": {
+                            "number": order_number,
+                            "payment": {
+                                "status": tappay_result["status"],
+                                "message": msg
+                            }
                         }
-                    }
-                }, 200
-            else:
-                return {"error": True, "message": msg}, 400
+                    }, 200
+                else:
+                    mycursor.execute(
+                        "INSERT INTO orders (order_number, price, status, attraction_id, attraction_name, date, time, contact_name,  contact_email, contact_phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                        (order_number, price, status, attraction_id,
+                         attraction_name,  date, time, username, email, phone)
+                    )
+                    connection_object.commit()
+                    return {
+                        "data": {
+                            "number": order_number,
+                            "payment": {
+                                "status": tappay_result["status"],
+                                "message": msg
+                            }
+                        }
+                    }, 200
+            except Exception as e:
+                print(e)
+                return {
+                    "error": True,
+                    "message": "伺服器內部錯誤"
+                }, 500
+
+            finally:
+                mycursor.close()
+                connection_object.close()
 
         else:
             return {"error": True, "message": "未登入系統，拒絕存取"}, 403
@@ -129,10 +164,6 @@ def make_payment():
             "error": True,
             "message": "伺服器內部錯誤"
         }, 500
-
-    finally:
-        mycursor.close()
-        connection_object.close()
 
 
 #  ------- 根據訂單編號取得訂單資訊 -------

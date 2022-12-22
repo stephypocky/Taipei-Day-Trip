@@ -143,8 +143,8 @@ function getBookingStatus(){
                             time: bookingData["time"]
                         },
                         contact: {
-                            name: bookingData["username"],
-                            email: bookingData["email"],
+                            name: document.querySelector("#contact-name").value,
+                            email: document.querySelector("#booking-email").value,
                             phone: document.querySelector("#phone").value
                         },
                     },
@@ -159,14 +159,15 @@ function getBookingStatus(){
                 .then((response) => response.json())
                 .then((data)=>{
                     // console.log(data);
-                    if (data["error"]) {
+                    if (data.error) {
                         // console.log("error");
-                        // window.location.href="/";
-                        let alertMessage = document.querySelector("#alert-message");
-                        alertMessage.textContent="付款失敗，請再次嘗試"
+                        // console.log(orderNumber);
+                        let alertNophoneMessage = document.querySelector(".alert-nophone-message");
+                        alertNophoneMessage.textContent = "請輸入電話號碼";
+                    
 
                     } else {
-                        orderNumber = data.data["number"]
+                        orderNumber = data.data.number
                         // console.log(orderNumber);
                         window.location=`/thankyou?number=${orderNumber}`;
                     }
