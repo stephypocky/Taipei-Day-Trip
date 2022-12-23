@@ -4,6 +4,7 @@ from flask import *
 import mysql.connector
 import jwt
 import time
+import requests
 from datetime import datetime, timedelta
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -22,19 +23,19 @@ headers = {
 }
 
 # JWT key
-key = '_5#y2L"F4Q8z\nc]/'
+key = os.getenv("jwt_key")
 
 app = Flask(__name__)
-app.secret_key = '_5#y2L"F4Q8z\nc]/'
+app.secret_key = os.getenv("app.secret_key")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["JSON_SORT_KEYS"] = False
 
 dbconfig = {
-    "user": "root",
+    "user":  os.getenv("user"),
     "password": os.getenv("password"),
-    "host": "localhost",
-    "database": "taipei_attractions"
+    "host": os.getenv("host"),
+    "database": os.getenv("database")
 }
 connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
                                                               pool_size=10,

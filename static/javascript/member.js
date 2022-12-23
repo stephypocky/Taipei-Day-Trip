@@ -2,7 +2,7 @@ const signin = document.querySelector(".signin");
 const signup = document.querySelector(".signup");
 const blackShadow = document.querySelector(".black-shadow");
 
-
+userStatus();
 
 // ------- 點擊 登入/註冊，跳出登入頁面 -------
 
@@ -80,6 +80,13 @@ signupFrom.addEventListener("submit", function(event) {
     let username = document.getElementsByName("username")[0];
     let email = document.getElementsByName("email")[1];
     let password = document.getElementsByName("password")[1];
+
+    // let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+    // if (emailRule.test(email) != true){
+    //     let failSignin = document.querySelector(".fail-signin");
+    //     failSignin.innerHTML="data.message";
+    // }   
+
     let data= {
         username: username.value,
         email: email.value,
@@ -168,7 +175,7 @@ function userStatus(){
     });
 }
 
-userStatus();
+
 // ------- 登出 ------- 
 
 function logout(){

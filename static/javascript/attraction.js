@@ -167,3 +167,20 @@ bookingForm.addEventListener("submit", function(event){
         }
     });
 });
+
+
+//------- 設定只能預訂今天以後的日期 ------- 
+
+let date = new Date();
+// console.log(date);
+// console.log(date.getDate()); // 來取得日期。
+// console.log(date.getMonth()); // 來取得月份，月份是從0開始，所以+1的話才會得到正確的月份。
+// console.log(date.getFullYear()); // 來取得年份。
+
+let chooseDate = document.querySelector("#choose_date");
+let currentDate =date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+// console.log(currentDate);
+
+let minDate =date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1); 
+// console.log(minDate);
+chooseDate.min= minDate;

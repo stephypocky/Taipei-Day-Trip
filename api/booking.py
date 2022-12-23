@@ -3,6 +3,7 @@ from mysql.connector import pooling
 from flask import *
 import mysql.connector
 import jwt
+import requests
 import time
 from datetime import datetime, timedelta
 from flask_cors import CORS
@@ -22,19 +23,19 @@ headers = {
 }
 
 # JWT key
-key = '_5#y2L"F4Q8z\nc]/'
+key = os.getenv("jwt_key")
 
 app = Flask(__name__)
-app.secret_key = '_5#y2L"F4Q8z\nc]/'
+app.secret_key = os.getenv("app.secret_key")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["JSON_SORT_KEYS"] = False
 
 dbconfig = {
-    "user": "root",
+    "user":  os.getenv("user"),
     "password": os.getenv("password"),
-    "host": "localhost",
-    "database": "taipei_attractions"
+    "host": os.getenv("host"),
+    "database": os.getenv("database")
 }
 connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
                                                               pool_size=10,
@@ -57,32 +58,20 @@ def get_booking():
             mycursor.execute(
                 "SELECT * FROM booking WHERE email = %s", (email,))
             booking_result = mycursor.fetchone()
-            # print(booking_result)
             if booking_result is None:
                 return {"data": None,
-                        "username": username
+                        "username": username,
+                        "email": email
                         }, 200
 
-            if booking_result is not None:
+            if booking_result:
                 attraction_id = booking_result[2]
-                # print(attraction_id)
                 date = booking_result[3]
                 time = booking_result[4]
                 price = booking_result[5]
                 mycursor.execute(
                     "SELECT * FROM spots WHERE id = %s", (attraction_id,))
                 attraction_result = mycursor.fetchone()
-                # print(attraction_result)
-                # id = attraction_id
-                # print(id)
-                # name = attraction_result[1]
-                # print(name)
-                # address = attraction_result[4]
-                # print((address))
-                # image = attraction_result[9].split(
-                #     ',')[0].replace("[", "").replace("'", "", 2)
-                # print(image)
-
                 final_result = {
                     "attraction": {
                         "id": attraction_id,
@@ -95,15 +84,17 @@ def get_booking():
                     "time": time,
                     "price": price
                 }
+                # data = {
+                #     "data": final_result,
+                #     "username": username
+                # }
+                # return jsonify(data), 200
 
-                # print(final_result)
-                data = {
+                return {
                     "data": final_result,
-                    "username": username
-                }
-
-                # print(data)
-                return jsonify(data), 200
+                    "username": username,
+                    "email": email
+                }, 200
 
         else:
             return {
@@ -149,7 +140,6 @@ def make_booking():
                 connection_object.commit()
                 return {"ok": True}, 200
             if myresult:
-                print("aa")
                 mycursor = connection_object.cursor()
                 mycursor.execute(
                     "UPDATE booking SET attraction_id=%s, date=%s, time=%s, price=%s WHERE email= %s", (attraction_id, date, time, price, email))

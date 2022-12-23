@@ -15,16 +15,16 @@ attraction = Blueprint("attraction", __name__)
 # app.register_blueprint(attraction)
 
 app = Flask(__name__)
-app.secret_key = '_5#y2L"F4Q8z\nc]/'
+app.secret_key = os.getenv("app.secret_key")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["JSON_SORT_KEYS"] = False
 
 dbconfig = {
-    "user": "root",
+    "user":  os.getenv("user"),
     "password": os.getenv("password"),
-    "host": "localhost",
-    "database": "taipei_attractions"
+    "host": os.getenv("host"),
+    "database": os.getenv("database")
 }
 
 # ------- Get connection object from a pool -------

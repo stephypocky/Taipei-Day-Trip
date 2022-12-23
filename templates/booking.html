@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>台北一日遊</title>
-    <link rel="stylesheet" href="../static/index.css">
-    <link rel="stylesheet" href="../static/member.css">
-    <link rel="stylesheet" href="../static/attraction.css">
-    <link rel="stylesheet" href="../static/booking.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/member.css">
+    <link rel="stylesheet" href="../static/css/attraction.css">
+    <link rel="stylesheet" href="../static/css/booking.css">
+
 </head>
 
 <body>
@@ -88,35 +89,39 @@
                     </div>
                     <div class="order-input-box">
                         <label for="phone">手機號碼：</label>
-                        <input type="text" id="phone" name="phone" required>
+                        <input type="text" id="phone" name="phone">
                     </div class="order-input-box">
                     <div class="reminder">請保持手機通暢，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                    <div class="alert-nophone-message"></div>
                 </div>
                 <hr style="border: 1px solid #E8E8E8">
                 <div class="card-info">
                     <div class="order-title">信用卡付款資訊</div>
-                    <div class="order-input-box card-number-group">
+                    <div class="order-input-box card-number-div">
                         <label for="credit ">卡片號碼：</label>
-                        <input type="text" placeholder="**** **** **** ****"required>
-                        <!-- <div class="type-detail" id="card-number"></div> -->
+                        <!-- <input type="tel" pattern="\d*" maxlength="19" placeholder="**** **** **** ****"required> -->
+                        <div class="tpfield" id="card-number"></div>
                     </div>
-                    <div class="order-input-box expiration-date-group">
+                    <div class="order-input-box expiration-div">
                         <label for="expiration">過期時間：</label>
-                        <input type="text" placeholder="MM / YY" required>
-                        <!-- <div class="type-detail" id="card-expiration-date"></div> -->
+                        <!-- <input type="text" placeholder="MM / YY" required> -->
+                        <div class="tpfield" id="card-expiration-date"></div>
                     </div>
-                    <div class="order-input-box cvc-group">
+                    <div class="order-input-box ccv-div">
                         <label for="CVV">驗證密碼：</label>
-                        <input type="password" placeholder="CVV" required>
-                        <!-- <div class="type-detail" id="card-ccv"></div> -->
+                        <!-- <input type="password" pattern="\d*" maxlength="3" placeholder="CVV" required> -->
+                        <div class="tpfield" id="card-ccv"></div>
                     </div>
+                    <div id="alert-message"></div>
                 </div>
-                <hr style="border: 1px solid #E8E8E8">
+                <hr style="border: 1px solid #E8E8E8"> 
                 <!-- <div class="separate_line"></div> -->
                 <div class="booking-conclude">
                     <div class="total-amount"></div>
-                    <button type="submit" class="confirm-btn" >確認訂購並付款</button>
+                    <button type="submit" class="confirm-btn" disabled >確認訂購並付款</button>
                 </div>
+
+        
             </form>
         </div>
         <!-- <p class="none-order">目前沒有任何待預訂的行程</p> -->
@@ -125,10 +130,11 @@
         <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
     </div>
-    <!-- <script src="../static/index.js"></script> -->
-    <script src="../static/member.js"></script>
-    <!-- <script src="../static/attraction.js"></script> -->
-    <script src="../static/booking.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.13.1"></script>
+    <!-- <script src="../static/javascript/index.js"></script> -->
+    <script src="../static/javascript/booking.js"></script>
+    <!-- <script src="../static/javascript/attraction.js"></script> -->
+    <script src="../static/javascript/member.js"></script>
 </body>
 
 </html>

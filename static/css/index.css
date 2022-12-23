@@ -163,7 +163,7 @@
 
 .welcome-box {
     height: 320px;
-    background: url("../static/images/welcome.png");
+    background: url("../images/welcome.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: grid;

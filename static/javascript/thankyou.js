@@ -1,57 +1,41 @@
-getBookingStatus();
+window.addEventListener("load", function(){
+    // console.log("hello");
+    let order = window.location.href.split("=");
+    // console.log(order);
+    orderNumber= order[1];
+    // console.log(orderNumber);
 
-function getBookingStatus(){
-    fetch(`/api/booking`,{
+    let orderNumberText= document.querySelector(".order-number");
+    orderNumberText.textContent= "訂單編號 : "+ orderNumber ;
+
+    fetch(`/api/order/${orderNumber}`,{
         method: "GET",
+        headers: {
+        'Content-Type':'application/json'
+        }
     })
     .then((response) => response.json())
     .then((data) => {
-        let message = data.message;
-        if (message == "使用者未登入"){
-            window.location.href="/";
-            return
-        }
-        let bookingData = data.data;
-        let bookingName = document.querySelector("#booking-name");
-        bookingName.textContent= data["username"];
+        // console.log(data);
+        const bookingData = data.data;
 
-
-
-        // console.log(bookingData)
-        if (bookingData == null){
-            let bookingcontainer = document.querySelector(".booking-container");
-            let footer = document.querySelector("#footer");
-            // let noneOrder= document.querySelector(".none-order");
-            
-            // noneOrder.style.display="block";
-            bookingcontainer.textContent = "目前沒有任何待預訂的行程";
-            bookingcontainer.style =" margin: 30px auto";
-            // document.querySelector("body").style.backgroundColor = "#757575";
-            // document.querySelector("booking-main").style.backgroundColor = "#ffffff";
-            // document.querySelector(".nav-box").style.backgroundColor = "#ffffff";
-            footer.style = "height: 100vh; position:fixed; width:100%";
-            // footer.style = "padding-bottom: 450px";
-
-        } else {
-
+        let orderNumber= document.querySelector(".order-number");
+        orderNumber
+        
+        if(bookingData){
             //  ------- 取得預定的的景點資訊 ------- 
-
-            let imgURL = bookingData["attraction"]["image"];
-            let nameContent = bookingData["attraction"]["name"];
-            let addressContent = bookingData["attraction"]["address"];
+            let imgURL = bookingData["trip"]["attraction"]["image"];
+            let nameContent = bookingData["trip"]["attraction"]["name"];
+            let addressContent = bookingData["trip"]["attraction"]["address"];
             let priceContent = bookingData["price"];
-            let dateContent = bookingData["date"];
-            let timeContent = bookingData["time"];
+            let dateContent = bookingData["trip"]["date"];
+            let timeContent = bookingData["trip"]["time"];
             if (timeContent == "morning") {
                 timeText = "早上 9 點到中午 12 點";
             } else {
                 timeText = "下午 1 點到下午 4 點";
             }
 
-            // let bookingName = document.querySelector("#booking-name");
-            // bookingName.textContent= data["username"];
-
-                
             // ------- DOM -------
             const bookingInfo=document.querySelector("#booking-info");
 
@@ -99,34 +83,9 @@ function getBookingStatus(){
             addressSpan.innerText = addressContent;
             addressTitle.appendChild(addressSpan);
 
-            let totalAmount = document.querySelector(".total-amount")
-            totalAmount.innerText = "總價：新台幣 " + priceContent + " 元";
-            
-           
-        
+        } else {
+            window.location.href="/";
         }
     });
-}
-
-
-
-
-
-
-//--------- 刪除預定行程 -------
-
-let bookingDelete = document.querySelector("#booking-delete");
-bookingDelete.addEventListener("click", function(){
-    fetch(`/api/booking`, {
-    method: "DELETE",
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if ("ok" in data) {
-        // let bookingcontainer = document.querySelector(".booking-container");
-        // bookingcontainer.innerHTML = "";
-        // bookingcontainer.textContent = "目前沒有任何待預訂的行程";
-        window.location.reload();
-      }
-    });
 });
+
