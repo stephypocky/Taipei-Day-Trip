@@ -16,7 +16,7 @@ window.addEventListener("load", function(){
     })
     .then((response) => response.json())
     .then((data) => {
-        // console.log(data);
+        console.log(data);
         const bookingData = data.data;
 
         let orderNumber= document.querySelector(".order-number");
@@ -83,7 +83,7 @@ window.addEventListener("load", function(){
             addressSpan.innerText = addressContent;
             addressTitle.appendChild(addressSpan);
 
-        } else {
+        }else {
             window.location.href="/";
         }
     });

@@ -69,6 +69,40 @@ function connectBooking() {
 	}
 }
 
+//檢查 email 格式
+// let strEmail = document.getElementsByName("email")[1].value;
+// let usereamil
+// let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+// function checkEmail(usereamil){
+//     if(strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/)!=-1){
+//         console.log(strEmail);
+//         return true;
+       
+//     }else {
+//         let failSignup = document.querySelector(".fail-signup");
+//         failSignup.innerHTML="email格式錯誤";
+//     }
+// };
+
+
+
+// ------- 檢查 email 格式  ------- 
+
+let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+function checkEmail(email){
+    emailRule.test(email);
+    if(!emailRule.test(email)){
+        let failSignup = document.querySelector(".fail-signup");
+        failSignup.innerHTML="email格式錯誤";
+    }else {
+        return true;
+    }
+    // console.log(emailRule.test(email));
+};
+
+// ------- 檢查 password 格式  ------- 
+
+// let passwordRule=
 
 // ------- 註冊 ------- 
 
@@ -77,47 +111,45 @@ const signupFrom = document.querySelector(".signup-form")
 signupFrom.addEventListener("submit", function(event) {
     event.preventDefault(); //event.preventDefault(), Clicking on a "Submit" button, prevent it from submitting a form
     // console.log("123");
-    let username = document.getElementsByName("username")[0];
-    let email = document.getElementsByName("email")[1];
-    let password = document.getElementsByName("password")[1];
-
-    // let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-    // if (emailRule.test(email) != true){
-    //     let failSignin = document.querySelector(".fail-signin");
-    //     failSignin.innerHTML="data.message";
-    // }   
+    let username = document.getElementsByName("username")[0].value;
+    let email = document.getElementsByName("email")[1].value;
+    let password = document.getElementsByName("password")[1].value;
 
     let data= {
-        username: username.value,
-        email: email.value,
-        password: password.value,
+        username: username,
+        email: email,
+        password: password,
     };
+    
     // console.log(data)
-    fetch(`/api/user`,{
+    if(checkEmail(email)){
+        fetch(`/api/user`,{
         method: "POST",
         headers: new Headers({ "Content-Type": "application/json" }),
         body: JSON.stringify(data), 
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if("ok" in data){
-            let successSignup = document.querySelector(".success-signup");
-            successSignup.style.display = "block";
-            username.value = "";
-            email.value = "";
-            password.value = "";
-            setTimeout(()=>{
-                successSignup.style.display = "none";
-            },2000)
-        } else {
-            let failSignup = document.querySelector(".fail-signup");
-            failSignup.innerHTML=data.message;
-            setTimeout(()=>{
-                failSignup.innerHTML="";
-            },2000)
-        }
-    });
-})
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if("ok" in data){ 
+                let successSignup = document.querySelector(".success-signup");
+                successSignup.style.display = "block";
+                username.value = "";
+                email.value = "";
+                password.value = "";
+
+                setTimeout(()=>{
+                    successSignup.style.display = "none";
+                },2000)
+            } else {
+                let failSignup = document.querySelector(".fail-signup");
+                failSignup.innerHTML=data.message;
+                setTimeout(()=>{
+                    failSignup.innerHTML="";
+                },2000)
+            }
+        });
+    };
+});
      
 // ------- 登入 ------- 
  
@@ -133,25 +165,26 @@ signinForm.addEventListener("submit", function(event) {
         email: signinemail,
         password: signinpassowrd,
     };
-    fetch(`/api/user`, {
+    if(checkEmail(signinemail)){
+        fetch(`/api/user`, {
         method: "PUT",
         headers: new Headers({ "Content-Type": "application/json" }),
-        body: JSON.stringify(data), 
-        
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if("ok" in data){
-            closeBothForm();
-            window.location.reload();
-        } else {
-            let failSignin = document.querySelector(".fail-signin");
-            failSignin.innerHTML=data.message;
-            setTimeout(()=>{
-                failSignin.innerHTML="";
-            }, 2000)
-        }
-    });
+        body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if("ok" in data){
+                closeBothForm();
+                window.location.reload();
+            } else {
+                let failSignin = document.querySelector(".fail-signin");
+                failSignin.innerHTML=data.message;
+                setTimeout(()=>{
+                    failSignin.innerHTML="";
+                }, 2000)
+            }
+        });
+    }
 });
 
 // ------- 檢查會員登入狀態 ------- 
@@ -173,7 +206,7 @@ function userStatus(){
             signinNav.textContent="登入/註冊";
         }
     });
-}
+};
 
 
 // ------- 登出 ------- 
@@ -190,6 +223,4 @@ function logout(){
             window.location.reload();
         }
     });
-}   
-
-
+};

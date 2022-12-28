@@ -8,6 +8,8 @@ import requests
 from datetime import datetime, timedelta
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
+from email_validator import validate_email, EmailNotValidError
+import re
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -60,19 +62,29 @@ def signup():
         mycursor.execute(
             "SELECT * FROM member WHERE email =%s", (email,))
         myresult = mycursor.fetchone()
-        if myresult != None:
+        email_format_check = re.search(
+            "^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$", email)
+        name_format_check = re.search("[a-zA-Z0-9]", username)
+        # print(name_format_check)
+        if email_format_check and name_format_check:
+            if myresult != None:
+                return {
+                    "error": True,
+                    "message": "註冊失敗，重複的 Email  "
+                }, 400
+
+            else:
+                mycursor.execute(
+                    "INSERT INTO member (username, email, password) VALUES (%s, %s, %s)", (username, email, hashed_password))
+                connection_object.commit()
+                return {
+                    "ok": True
+                }, 200
+        else:
             return {
                 "error": True,
-                "message": "註冊失敗，重複的 Email  "
+                "message": "姓名或 email 格式錯誤",
             }, 400
-
-        else:
-            mycursor.execute(
-                "INSERT INTO member (username, email, password) VALUES (%s, %s, %s)", (username, email, hashed_password))
-            connection_object.commit()
-            return {
-                "ok": True
-            }, 200
 
     except:
         return {

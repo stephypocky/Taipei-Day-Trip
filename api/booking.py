@@ -48,42 +48,49 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool"
 @booking.route("/api/booking", methods=["GET"])
 def get_booking():
     try:
-        connection_object = connection_pool.get_connection()
-        mycursor = connection_object.cursor()
         JWT_cookie = request.cookies.get("token")
         if JWT_cookie:
             token = jwt.decode(JWT_cookie, key, algorithms="HS256")
             email = token["email"]
             username = token["username"]
+            connection_object = connection_pool.get_connection()
+            mycursor = connection_object.cursor(dictionary=True)
             mycursor.execute(
                 "SELECT * FROM booking WHERE email = %s", (email,))
             booking_result = mycursor.fetchone()
+            # print(booking_result)
             if booking_result is None:
                 return {"data": None,
                         "username": username,
                         "email": email
                         }, 200
-
+            # print(booking_result)
             if booking_result:
-                attraction_id = booking_result[2]
-                date = booking_result[3]
-                time = booking_result[4]
-                price = booking_result[5]
+                attraction_id = booking_result["attraction_id"]
+                date = booking_result["date"]
+                time = booking_result["time"]
+                price = booking_result["price"]
+
                 mycursor.execute(
                     "SELECT * FROM spots WHERE id = %s", (attraction_id,))
                 attraction_result = mycursor.fetchone()
+
+                # image = attraction_result["images"].split(
+                #     ',')[0].replace("[", "").replace("'", "", 2)
+                # print(image)
                 final_result = {
                     "attraction": {
                         "id": attraction_id,
-                        "name": attraction_result[1],
-                        "address": attraction_result[4],
-                        "image": attraction_result[9].split(
+                        "name": attraction_result["name"],
+                        "address": attraction_result["address"],
+                        "image": attraction_result["images"].split(
                             ',')[0].replace("[", "").replace("'", "", 2)
                     },
                     "date": date,
                     "time": time,
                     "price": price
                 }
+
                 # data = {
                 #     "data": final_result,
                 #     "username": username

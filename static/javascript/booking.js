@@ -3,6 +3,7 @@ getBookingStatus();
 
 
 
+
 // ------- 取得尚未下單的預訂行程 -------
 function getBookingStatus(){
     fetch(`/api/booking`,{
@@ -32,10 +33,9 @@ function getBookingStatus(){
             footer.style = "height: 100vh; position:fixed; width:100%";
             // footer.style = "padding-bottom: 450px";
 
-        } else {
+        } else { 
 
             //  ------- 取得預定的的景點資訊 ------- 
-
             let imgURL = bookingData["attraction"]["image"];
             let nameContent = bookingData["attraction"]["name"];
             let addressContent = bookingData["attraction"]["address"];
@@ -47,56 +47,56 @@ function getBookingStatus(){
             } else {
                 timeText = "下午 1 點到下午 4 點";
             }
-                
-            // ------- DOM -------
-            const bookingInfo=document.querySelector("#booking-info");
+        //    getbookingInfo();
+                const bookingInfo=document.querySelector("#booking-info");
 
-            let img = document.querySelector("#booking-img");
-            img.src = imgURL;
+                let img = document.querySelector("#booking-img");
+                img.src = imgURL;
 
-            let mainTitle = document.createElement("div");
-            mainTitle.setAttribute("class", "booking-attra-name");
-            mainTitle.innerText = "台北一日遊： " + nameContent;
-            bookingInfo.append(mainTitle);
+                let mainTitle = document.createElement("div");
+                mainTitle.setAttribute("class", "booking-attra-name");
+                mainTitle.innerText = "台北一日遊： " + nameContent;
+                bookingInfo.append(mainTitle);
 
-            let dateTitle = document.createElement("div");
-            dateTitle.setAttribute("class", "booking-attra-text");
-            dateTitle.innerText = "日期： ";
-            bookingInfo.append(dateTitle);
-            let dateSpan = document.createElement("span");
-            dateSpan.setAttribute("class", "booking-attra-span");
-            dateSpan.innerText = dateContent;
-            dateTitle.appendChild(dateSpan);
+                let dateTitle = document.createElement("div");
+                dateTitle.setAttribute("class", "booking-attra-text");
+                dateTitle.innerText = "日期： ";
+                bookingInfo.append(dateTitle);
+                let dateSpan = document.createElement("span");
+                dateSpan.setAttribute("class", "booking-attra-span");
+                dateSpan.innerText = dateContent;
+                dateTitle.appendChild(dateSpan);
 
-            let timeTitle = document.createElement("div");
-            timeTitle.setAttribute("class", "booking-attra-text");
-            timeTitle.innerText = "時間： ";
-            bookingInfo.append(timeTitle);
-            let timeSpan= document.createElement("span");
-            timeSpan.setAttribute("class", "booking-attra-span");
-            timeSpan.innerText = timeText;
-            timeTitle.appendChild(timeSpan);
+                let timeTitle = document.createElement("div");
+                timeTitle.setAttribute("class", "booking-attra-text");
+                timeTitle.innerText = "時間： ";
+                bookingInfo.append(timeTitle);
+                let timeSpan= document.createElement("span");
+                timeSpan.setAttribute("class", "booking-attra-span");
+                timeSpan.innerText = timeText;
+                timeTitle.appendChild(timeSpan);
 
-            let priceTitle = document.createElement("div");
-            priceTitle.setAttribute("class", "booking-attra-text");
-            priceTitle.innerText = "費用： ";
-            bookingInfo.append(priceTitle);
-            let priceSpan = document.createElement("span");
-            timeSpan.setAttribute("class", "booking-attra-span");
-            priceSpan.innerText = "新台幣 "+ priceContent +" 元"; 
-            priceTitle.appendChild(priceSpan);
+                let priceTitle = document.createElement("div");
+                priceTitle.setAttribute("class", "booking-attra-text");
+                priceTitle.innerText = "費用： ";
+                bookingInfo.append(priceTitle);
+                let priceSpan = document.createElement("span");
+                timeSpan.setAttribute("class", "booking-attra-span");
+                priceSpan.innerText = "新台幣 "+ priceContent +" 元"; 
+                priceTitle.appendChild(priceSpan);
 
-            let addressTitle = document.createElement("div");
-            addressTitle.setAttribute("class", "booking-attra-text");
-            addressTitle.innerText = "地點： ";
-            bookingInfo.append(addressTitle);
-            let addressSpan = document.createElement("span");
-            addressSpan.setAttribute("class", "booking-attra-span");
-            addressSpan.innerText = addressContent;
-            addressTitle.appendChild(addressSpan);
+                let addressTitle = document.createElement("div");
+                addressTitle.setAttribute("class", "booking-attra-text");
+                addressTitle.innerText = "地點： ";
+                bookingInfo.append(addressTitle);
+                let addressSpan = document.createElement("span");
+                addressSpan.setAttribute("class", "booking-attra-span");
+                addressSpan.innerText = addressContent;
+                addressTitle.appendChild(addressSpan);
 
-            let totalAmount = document.querySelector(".total-amount")
-            totalAmount.innerText = "總價：新台幣 " + priceContent + " 元";
+                let totalAmount = document.querySelector(".total-amount")
+                totalAmount.innerText = "總價：新台幣 " + priceContent + " 元";
+            
         }
         //使用 TPDirect.card.getPrime 取得 Prime
         const orderForm = document.querySelector(".order");
@@ -292,3 +292,60 @@ TPDirect.card.onUpdate(function (update) {
 });
 
  
+// ------- DOM -------
+function getbookingInfo(){
+    let imgURL = bookingData["attraction"]["image"];
+    let nameContent = bookingData["attraction"]["name"];
+    let addressContent = bookingData["attraction"]["address"];
+    let priceContent = bookingData["price"];
+    let dateContent = bookingData["date"];
+    const bookingInfo=document.querySelector("#booking-info");
+
+    let img = document.querySelector("#booking-img");
+    img.src = imgURL;
+
+    let mainTitle = document.createElement("div");
+    mainTitle.setAttribute("class", "booking-attra-name");
+    mainTitle.innerText = "台北一日遊： " + nameContent;
+    bookingInfo.append(mainTitle);
+
+    let dateTitle = document.createElement("div");
+    dateTitle.setAttribute("class", "booking-attra-text");
+    dateTitle.innerText = "日期： ";
+    bookingInfo.append(dateTitle);
+    let dateSpan = document.createElement("span");
+    dateSpan.setAttribute("class", "booking-attra-span");
+    dateSpan.innerText = dateContent;
+    dateTitle.appendChild(dateSpan);
+
+    let timeTitle = document.createElement("div");
+    timeTitle.setAttribute("class", "booking-attra-text");
+    timeTitle.innerText = "時間： ";
+    bookingInfo.append(timeTitle);
+    let timeSpan= document.createElement("span");
+    timeSpan.setAttribute("class", "booking-attra-span");
+    timeSpan.innerText = timeText;
+    timeTitle.appendChild(timeSpan);
+
+    let priceTitle = document.createElement("div");
+    priceTitle.setAttribute("class", "booking-attra-text");
+    priceTitle.innerText = "費用： ";
+    bookingInfo.append(priceTitle);
+    let priceSpan = document.createElement("span");
+    timeSpan.setAttribute("class", "booking-attra-span");
+    priceSpan.innerText = "新台幣 "+ priceContent +" 元"; 
+    priceTitle.appendChild(priceSpan);
+
+    let addressTitle = document.createElement("div");
+    addressTitle.setAttribute("class", "booking-attra-text");
+    addressTitle.innerText = "地點： ";
+    bookingInfo.append(addressTitle);
+    let addressSpan = document.createElement("span");
+    addressSpan.setAttribute("class", "booking-attra-span");
+    addressSpan.innerText = addressContent;
+    addressTitle.appendChild(addressSpan);
+
+    let totalAmount = document.querySelector(".total-amount")
+    totalAmount.innerText = "總價：新台幣 " + priceContent + " 元";
+
+};
