@@ -27,11 +27,16 @@ function getBookingStatus(){
         if (bookingData == null){
             let bookingcontainer = document.querySelector(".booking-container");
             let footer = document.querySelector("#footer");
-    
+
             bookingcontainer.textContent = "目前沒有任何待預訂的行程";
             bookingcontainer.style =" margin: 30px auto";
             footer.style = "height: 100vh; position:fixed; width:100%";
             // footer.style = "padding-bottom: 450px";
+
+            // let pastOrderBtn = document.createElement("button");
+            // pastOrderBtn.setAttribute("class", "past-order-btn");
+            // pastOrderBtn.textContent = "會員中心/歷史訂單";
+            // bookingcontainer.append(pastOrderBtn);
 
         } else { 
 
@@ -349,3 +354,9 @@ function getbookingInfo(){
     totalAmount.innerText = "總價：新台幣 " + priceContent + " 元";
 
 };
+
+// ------- 點擊 會員中心/歷史訂單 btn-------
+let pastOrderBtn=document.querySelector(".past-order-btn")
+pastOrderBtn.addEventListener("click", function(){
+    window.location=`/member`;
+})

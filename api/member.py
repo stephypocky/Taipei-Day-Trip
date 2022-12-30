@@ -172,7 +172,58 @@ def userstatus():
     except:
         return {"data": None}
 
-#  ------- 會員登出 -------
+#  ------- 修改會員姓名 -------
+
+
+@member.route("/api/user", methods=["PATCH"])
+def rename():
+    try:
+        JWT_cookie = request.cookies.get("token")
+        if JWT_cookie:
+            token = jwt.decode(JWT_cookie, key, algorithms="HS256")
+            username = token["username"]
+            data = request.get_json()
+            newname = data["username"]
+            connection_object = connection_pool.get_connection()
+            mycursor = connection_object.cursor()
+            mycursor.execute(
+                "UPDATE member SET username=%s WHERE username=%s", (newname, username))
+            connection_object.commit()
+
+            payload_myresult = {
+                "id": token["id"],
+                "username": newname,
+                "email": token["email"],
+                "exp": int(time.time()+86400*7)
+            }
+            token = jwt.encode(
+                payload_myresult,
+                key,
+                "HS256"
+            )
+
+            resp = make_response({"ok": True, "username": newname})
+            resp.set_cookie("token", "", 0)
+            resp.set_cookie("token", token)
+            return resp, 200
+        else:
+            return {
+                "error": True,
+                "message": "建立失敗，輸入不正確或其他原因"
+            }, 400
+
+    except Exception as e:
+        print("Exception", e)
+        return {
+            "error": True,
+            "message": "伺服器內部錯誤"
+        }, 500
+
+    finally:
+        mycursor.close()
+        connection_object.close()
+
+        #  ------- 會員登出 -------
 
 
 @member.route("/api/user/auth",  methods=["DELETE"])

@@ -69,22 +69,6 @@ function connectBooking() {
 	}
 }
 
-//檢查 email 格式
-// let strEmail = document.getElementsByName("email")[1].value;
-// let usereamil
-// let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-// function checkEmail(usereamil){
-//     if(strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/)!=-1){
-//         console.log(strEmail);
-//         return true;
-       
-//     }else {
-//         let failSignup = document.querySelector(".fail-signup");
-//         failSignup.innerHTML="email格式錯誤";
-//     }
-// };
-
-
 
 // ------- 檢查 email 格式  ------- 
 
@@ -102,7 +86,7 @@ function checkEmail(email){
 
 // ------- 檢查 password 格式  ------- 
 
-// let passwordRule=
+
 
 // ------- 註冊 ------- 
 

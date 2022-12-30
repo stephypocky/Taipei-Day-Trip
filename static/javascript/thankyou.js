@@ -19,9 +19,6 @@ window.addEventListener("load", function(){
         console.log(data);
         const bookingData = data.data;
 
-        let orderNumber= document.querySelector(".order-number");
-        orderNumber
-        
         if(bookingData){
             //  ------- 取得預定的的景點資訊 ------- 
             let imgURL = bookingData["trip"]["attraction"]["image"];
@@ -83,9 +80,16 @@ window.addEventListener("load", function(){
             addressSpan.innerText = addressContent;
             addressTitle.appendChild(addressSpan);
 
+            let pastOrderBtn=document.querySelector(".past-order-btn")
+            pastOrderBtn.style.display="block";
         }else {
             window.location.href="/";
         }
     });
 });
 
+// ------- 點擊 會員中心/歷史訂單 btn-------
+let pastOrderBtn=document.querySelector(".past-order-btn")
+pastOrderBtn.addEventListener("click", function(){
+    window.location=`/member`;
+})

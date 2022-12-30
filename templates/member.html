@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../static/css/member.css">
     <link rel="stylesheet" href="../static/css/attraction.css">
     <link rel="stylesheet" href="../static/css/booking.css">
+    <link rel="stylesheet" href="../static/css/membersystem.css">
 
 </head>
 
@@ -20,8 +21,10 @@
             <nav class="navbar-container">
                 <div class="nav-title"><a style="text-decoration: none; color: #448899;" href="/">台北一日遊</a></div>
                 <div class="nav-items-box">
-                    <div class="nav-items-1"><a style="text-decoration: none; color:#666666;" onclick="connectBooking()" id="navbooking">預定行程</a></div>
-                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()" id="signinnav">登入/註冊</a></div>
+                    <div class="nav-items-1"><a style="text-decoration: none; color:#666666;" onclick="connectBooking()"
+                            id="navbooking">預定行程</a></div>
+                    <div class="nav-items-2"><a style="text-decoration: none; color:#666666;" onclick="showSignin()"
+                            id="signinnav">登入/註冊</a></div>
                     <!-- <div class="nav-items-3"><a style="text-decoration: none; color:#666666;" onclick="signout()"  id="signoutnav">登出系統</a></div> -->
                 </div>
             </nav>
@@ -62,80 +65,53 @@
             </div>
         </div>
 
-    <main class="booking-main">
-        <div class="booking-greeting">您好，<span id="booking-name"></span>，待預定的行程如下:</div>
-        <div class="booking-container">
-            <div class="booking-info-all">
-                <div class="booking-info-box">
-                    <div class="booking-img-box">
-                        <img id="booking-img"></img>
+        <div class="membersystem-main">
+            <div class="membersystem-top">
+                <!-- <div class="member_icon"><img src="../static/Images/icon_member.jpg" /></div> -->
+                <div class="membersystem-info">
+                    <div class="membersystem-title">會員名稱：<span class="membersystem-username"></span>
+                        <input type="text" placeholder="請輸入新名稱" class="membersystem-newusername">
+                        <button class="edit-username-btn">修改姓名資料</button>
+                        <button class="save-username-btn">儲存姓名資料</button>
                     </div>
-                    <div id="booking-info"></div>
-                    <div id="booking-delete"><img src="../static/images/icon_delete.png" /></div>
+                    <div class="membersystem-title">電子郵件：
+                        <span class="membersystem-email"></span>
+                        <!-- <input type="text" class="membersystem-email"> -->
+                    </div>
+                    <div class="membersystem-title">會員密碼：<span class="membersystem-password">********</span></div>
                 </div>
             </div>
-            <hr style="border: 1px solid #E8E8E8">
-            <!-- <div class="separate_line"></div> -->
-            <form class="order">
-                <div class="order-info">
-                    <div class="order-title">您的聯絡資訊</div>
-                    <div class="order-input-box">
-                        <label for="contact_name">聯絡姓名：</label>
-                        <input type="text" id="contact-name" name="contact-name" required>
-                    </div>
-                    <div class="order-input-box">
-                        <label for="booking_email">聯絡信箱：</label>
-                        <input type="text" id="booking-email" name="booking-email" required>
-                    </div>
-                    <div class="order-input-box">
-                        <label for="phone">手機號碼：</label>
-                        <input type="text" id="phone" name="phone">
-                    </div class="order-input-box">
-                    <div class="reminder">請保持手機通暢，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
-                    <div class="alert-nophone-message"></div>
-                </div>
+            <div class="membersystem-bottom">
                 <hr style="border: 1px solid #E8E8E8">
-                <div class="card-info">
-                    <div class="order-title">信用卡付款資訊</div>
-                    <div class="order-input-box card-number-div">
-                        <label for="credit ">卡片號碼：</label>
-                        <!-- <input type="tel" pattern="\d*" maxlength="19" placeholder="**** **** **** ****"required> -->
-                        <div class="tpfield" id="card-number"></div>
+                <div class="past-orders">歷史訂單</div>
+                <h3 class="order-number"></h3>
+                <div class="booking-container">
+                    <div class="booking-info-all">
+                        <!-- <div class="booking-info-box">
+                            <div class="booking-img-box">
+                                <img id="booking-img"></img>
+                            </div>
+                        </div> -->
+                        <!-- <div id="booking-info"></div> -->
                     </div>
-                    <div class="order-input-box expiration-div">
-                        <label for="expiration">過期時間：</label>
-                        <!-- <input type="text" placeholder="MM / YY" required> -->
-                        <div class="tpfield" id="card-expiration-date"></div>
-                    </div>
-                    <div class="order-input-box ccv-div">
-                        <label for="CVV">驗證密碼：</label>
-                        <!-- <input type="password" pattern="\d*" maxlength="3" placeholder="CVV" required> -->
-                        <div class="tpfield" id="card-ccv"></div>
-                    </div>
-                    <div id="alert-message"></div>
+                    <button class="index-btn">回首頁</button>
                 </div>
-                <hr style="border: 1px solid #E8E8E8"> 
-                <!-- <div class="separate_line"></div> -->
-                <div class="booking-conclude">
-                    <div class="total-amount"></div>
-                    <button type="submit" class="confirm-btn" disabled >確認訂購並付款</button>
-                </div>
-
-        
-            </form>
+                
+            </div>
         </div>
-        <button class="past-order-btn">會員中心/歷史訂單</button>
-    </main>
+    
 
+
+ 
         <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
     </div>
     <script src="https://js.tappaysdk.com/tpdirect/v5.13.1"></script>
     <!-- <script src="../static/javascript/index.js"></script> -->
-    <script src="../static/javascript/booking.js"></script>
+    <!-- <script src="../static/javascript/booking.js"></script> -->
     <!-- <script src="../static/javascript/attraction.js"></script> -->
     <script src="../static/javascript/member.js"></script>
-    <!-- <script src="../static/javascript/membersystem.js"></script> -->
+    <script src="../static/javascript/membersystem.js"></script>
 </body>
 
 </html>

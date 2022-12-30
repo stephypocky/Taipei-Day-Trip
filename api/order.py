@@ -217,3 +217,75 @@ def get_order(orderNumber):
     finally:
         mycursor.close()
         connection_object.close()
+
+#  ------- 取得歷史訂單資訊 -------
+
+
+@order.route("/api/order", methods=["GET"])
+def past_order():
+    JWT_cookie = request.cookies.get("token")
+
+    try:
+        if JWT_cookie:
+            token = jwt.decode(JWT_cookie, key, algorithms="HS256")
+            email = token["email"]
+            connection_object = connection_pool.get_connection()
+            mycursor = connection_object.cursor(buffered=True, dictionary=True)
+            mycursor.execute(
+                "SELECT * FROM orders INNER JOIN spots ON attraction_name = name where contact_email = %s", (email,))
+            order_result = mycursor.fetchall()
+            # order_quantity = len(order_result)
+            # print(order_quantity)
+
+            result = []
+            for order_item in order_result:
+                item = {
+                    "number": order_item["order_number"],
+                    "price": order_item["price"],
+                    "trip": {
+                        "attraction": {
+                            "id": order_item["attraction_id"],
+                            "name": order_item["attraction_name"],
+                            "address": order_item["address"],
+                            "image": order_item["images"].split(',')[0].replace("[", "").replace("'", "", 2)
+                        },
+                        "date": order_item["date"],
+                        "time": order_item["time"]
+                    },
+                }
+                result.append(item)
+
+            return {"data": result}, 200
+            # return {
+            #     "data": {
+            #         "number": order_result["order_number"],
+            #         "price": order_result["price"],
+            #         "trip": {
+            #             "attraction": {
+            #                 "id": order_result["attraction_id"],
+            #                 "name": order_result["attraction_name"],
+            #                 "address": order_result["address"],
+            #                 "image": order_result["images"].split(',')[0].replace("[", "").replace("'", "", 2)
+            #             },
+            #             "date": order_result["date"],
+            #             "time": order_result["time"]
+            #         },
+            #     }
+
+            # }, 200
+        else:
+            return {
+                "error": True,
+                "messgae": "未登入系統，拒絕存取"
+            }, 403
+
+    except Exception as e:
+        print(e)
+        return {
+            "error": True,
+            "message": "伺服器內部錯誤"
+        }, 500
+
+    finally:
+        mycursor.close()
+        connection_object.close()
