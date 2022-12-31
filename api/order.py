@@ -53,12 +53,12 @@ def make_payment():
         if JWT_cookie:
             token = jwt.decode(JWT_cookie, key, algorithms="HS256")
             data = request.get_json()
+            # print(data)
             phone = data["order"]["contact"]["phone"]
 
-            if not phone:
+            if not phone:  # phone未填寫
                 return {"error": True, "message": "電話號碼未填寫"}, 400
 
-            # print(data)
             member_id = token["id"]
             username = data["order"]["contact"]["name"]
             email = data["order"]["contact"]["email"]
@@ -97,7 +97,7 @@ def make_payment():
             # 後端呼叫 TapPay 提供的付款 API
             tappay_result = requests.post(
                 url, headers=headers, data=json.dumps(body)).json()
-            print(tappay_result)
+            # print(tappay_result)
             status = tappay_result["status"]
             msg = tappay_result["msg"]
 
@@ -167,40 +167,112 @@ def make_payment():
 
 @order.route("/api/order/<orderNumber>", methods=["GET"])
 def get_order(orderNumber):
-    connection_object = connection_pool.get_connection()
-    mycursor = connection_object.cursor(buffered=True)
     JWT_cookie = request.cookies.get("token")
     try:
         if JWT_cookie:
             token = jwt.decode(JWT_cookie, key, algorithms="HS256")
+            connection_object = connection_pool.get_connection()
+            mycursor = connection_object.cursor(buffered=True, dictionary=True)
             mycursor.execute(
                 "SELECT * FROM orders INNER JOIN spots ON attraction_name = name where order_number=%s", (orderNumber,))
             order_result = mycursor.fetchone()
-            # print(order_result[20])
+            # print(order_result)
 
             return {
                 "data": {
-                    "number": order_result[1],
-                    "price": order_result[2],
+                    "number": order_result["order_number"],
+                    "price": order_result["price"],
                     "trip": {
                         "attraction": {
-                            "id": order_result[4],
-                            "name": order_result[5],
-                            "address": order_result[15],
-                            "image": order_result[20].split(',')[0].replace("[", "").replace("'", "", 2)
+                            "id": order_result["attraction_id"],
+                            "name": order_result["attraction_name"],
+                            "address": order_result["address"],
+                            "image": order_result["images"].split(',')[0].replace("[", "").replace("'", "", 2)
                         },
-                        "date": order_result[6],
-                        "time": order_result[7]
+                        "date": order_result["date"],
+                        "time": order_result["time"]
                     },
                     "contact": {
-                        "name": order_result[8],
-                        "email": order_result[9],
-                        "phone": order_result[10]
+                        "name": order_result["contact_name"],
+                        "email": order_result["contact_email"],
+                        "phone": order_result["contact_phone"]
                     },
-                    "status": order_result[3]
+                    "status": order_result["status"]
 
                 }
             }, 200
+        else:
+            return {
+                "error": True,
+                "messgae": "未登入系統，拒絕存取"
+            }, 403
+
+    except Exception as e:
+        print(e)
+        return {
+            "error": True,
+            "message": "伺服器內部錯誤"
+        }, 500
+
+    finally:
+        mycursor.close()
+        connection_object.close()
+
+#  ------- 取得歷史訂單資訊 -------
+
+
+@order.route("/api/order", methods=["GET"])
+def past_order():
+    JWT_cookie = request.cookies.get("token")
+
+    try:
+        if JWT_cookie:
+            token = jwt.decode(JWT_cookie, key, algorithms="HS256")
+            email = token["email"]
+            connection_object = connection_pool.get_connection()
+            mycursor = connection_object.cursor(buffered=True, dictionary=True)
+            mycursor.execute(
+                "SELECT * FROM orders INNER JOIN spots ON attraction_name = name where contact_email = %s", (email,))
+            order_result = mycursor.fetchall()
+            # order_quantity = len(order_result)
+            # print(order_quantity)
+
+            result = []
+            for order_item in order_result:
+                item = {
+                    "number": order_item["order_number"],
+                    "price": order_item["price"],
+                    "trip": {
+                        "attraction": {
+                            "id": order_item["attraction_id"],
+                            "name": order_item["attraction_name"],
+                            "address": order_item["address"],
+                            "image": order_item["images"].split(',')[0].replace("[", "").replace("'", "", 2)
+                        },
+                        "date": order_item["date"],
+                        "time": order_item["time"]
+                    },
+                }
+                result.append(item)
+
+            return {"data": result}, 200
+            # return {
+            #     "data": {
+            #         "number": order_result["order_number"],
+            #         "price": order_result["price"],
+            #         "trip": {
+            #             "attraction": {
+            #                 "id": order_result["attraction_id"],
+            #                 "name": order_result["attraction_name"],
+            #                 "address": order_result["address"],
+            #                 "image": order_result["images"].split(',')[0].replace("[", "").replace("'", "", 2)
+            #             },
+            #             "date": order_result["date"],
+            #             "time": order_result["time"]
+            #         },
+            #     }
+
+            # }, 200
         else:
             return {
                 "error": True,

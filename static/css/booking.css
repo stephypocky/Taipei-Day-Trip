@@ -231,7 +231,27 @@ h2 {
 
 }
 
+.past-order-btn {
+    display: block;
+    font-size: 20px;
+    width: 200px;
+    height: 36px;
+    background-color: #448899;
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 30px;
 
+
+}
+
+.past-order-btn:hover {
+    transform: translate(2px, 2px);
+}
 
 
 @media (max-width: 1200px) {

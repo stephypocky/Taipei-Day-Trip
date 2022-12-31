@@ -179,8 +179,8 @@ let date = new Date();
 
 let chooseDate = document.querySelector("#choose_date");
 let currentDate =date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-// console.log(currentDate);
+console.log(currentDate);
 
 let minDate =date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1); 
-// console.log(minDate);
+console.log(minDate);
 chooseDate.min= minDate;

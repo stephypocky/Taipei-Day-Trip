@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>台北一日遊</title>
     <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/member.css">
     <link rel="stylesheet" href="../static/css/attraction.css">
     <link rel="stylesheet" href="../static/css/booking.css">
-    <link rel="stylesheet" href="../static/css/member.css">
+    <link rel="stylesheet" href="../static/css/membersystem.css">
 
 </head>
 
@@ -29,7 +30,7 @@
             </nav>
         </div>
         <div class="nav-box"></div>
-    
+
         <div class="member">
             <div class="signin">
                 <h3 class="signin-title">登入會員帳號
@@ -56,36 +57,61 @@
                     <input type="text" placeholder="輸入電子郵件" name="email" required>
                     <input type="password" placeholder="輸入密碼" name="password" required>
                     <button class="signup-button" type="submit">註冊新帳戶</button>
-                    <p class="fail-signup">email 格式錯誤</p>
+                    <p class="fail-signup"></p>
                     <p class="success-signup">註冊成功</p>
                     <p class="success-signup-message">已經有帳戶了？<span class="direct-signin"
                             onclick="directSignin()">點此登入</span></p>
                 </form>
             </div>
         </div>
-    <main class="booking-main">
-        <h2>付款完成</h2>
-        <h2 class="thankyou-text">感謝您的訂購，預祝您旅途愉快</h2>
-        <h3 class="order-number"></h3>
-        <div class="booking-container">
-            <div class="booking-info-all">
-                <div class="booking-info-box">
-                    <div class="booking-img-box">
-                        <img id="booking-img"></img>
+
+        <div class="membersystem-main">
+            <div class="membersystem-top">
+                <!-- <div class="member_icon"><img src="../static/Images/icon_member.jpg" /></div> -->
+                <div class="membersystem-info">
+                    <div class="membersystem-title">會員名稱：<span class="membersystem-username"></span>
+                        <input type="text" placeholder="請輸入新名稱" class="membersystem-newusername">
+                        <button class="edit-username-btn">修改姓名資料</button>
+                        <button class="save-username-btn">儲存姓名資料</button>
                     </div>
-                    <div id="booking-info"></div>
+                    <div class="membersystem-title">電子郵件：
+                        <span class="membersystem-email"></span>
+                        <!-- <input type="text" class="membersystem-email"> -->
+                    </div>
+                    <div class="membersystem-title">會員密碼：<span class="membersystem-password">********</span></div>
                 </div>
             </div>
+            <div class="membersystem-bottom">
+                <hr style="border: 1px solid #E8E8E8">
+                <div class="past-orders">歷史訂單</div>
+                <h3 class="order-number"></h3>
+                <div class="booking-container">
+                    <div class="booking-info-all">
+                        <!-- <div class="booking-info-box">
+                            <div class="booking-img-box">
+                                <img id="booking-img"></img>
+                            </div>
+                        </div> -->
+                        <!-- <div id="booking-info"></div> -->
+                    </div>
+                    <button class="index-btn">回首頁</button>
+                </div>
+                
+            </div>
         </div>
-        <button class="past-order-btn">會員中心/歷史訂單</button>
-    </main>
-        <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer>
-</body>
+    
 
-<!-- <script src="../static/javascript/index.js"></script> -->
-<script src="../static/javascript/member.js"></script>
-<!-- <script src="../static/javascript/attraction.js"></script> -->
-<!-- <script src="../static/javascript/booking.js"></script> -->
-<script src="../static/javascript/thankyou.js"></script>
+
+ 
+        <footer id="footer">COPYRIGHT © 2021 台北一日遊</footer>
+
+    </div>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.13.1"></script>
+    <!-- <script src="../static/javascript/index.js"></script> -->
+    <!-- <script src="../static/javascript/booking.js"></script> -->
+    <!-- <script src="../static/javascript/attraction.js"></script> -->
+    <script src="../static/javascript/member.js"></script>
+    <script src="../static/javascript/membersystem.js"></script>
+</body>
 
 </html>

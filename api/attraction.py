@@ -46,14 +46,12 @@ def api_attractions():
         keyword = request.args.get("keyword", None)
         return_data = []
         connection_object = connection_pool.get_connection()
-        mycursor = connection_object.cursor()
+        mycursor = connection_object.cursor(dictionary=True)
 
         if keyword != None:  # 有keyword，回傳 keyword 的資料
             mycursor.execute(
                 f'SELECT * FROM spots WHERE category=%s or name like "%{keyword}%" ORDER BY id LIMIT {page_index},12', (keyword,))
             data = mycursor.fetchall()
-            data = list(data)
-            # print(data)
 
             if len(data) >= 12:
                 next_page = page + 1
@@ -62,16 +60,16 @@ def api_attractions():
 
             for x in range(len(data)):
                 result = {
-                    "id": data[x][0],
-                    "name": data[x][1],
-                    "category": data[x][2],
-                    "description": data[x][3],
-                    "address": data[x][4],
-                    "transport": data[x][5],
-                    "mrt": data[x][6],
-                    "latitude": data[x][7],
-                    "longitude": data[x][8],
-                    "images": eval(data[x][9])
+                    "id": data[x]["id"],
+                    "name": data[x]["name"],
+                    "category": data[x]["category"],
+                    "description": data[x]["description"],
+                    "address": data[x]["address"],
+                    "transport": data[x]["transport"],
+                    "mrt": data[x]["mrt"],
+                    "latitude": data[x]["latitude"],
+                    "longitude": data[x]["longitude"],
+                    "images": eval(data[x]["images"])
                 }
                 return_data.append(result)  # 把資料塞進去
                 # print(result)
@@ -85,7 +83,6 @@ def api_attractions():
                 "SELECT * FROM spots ORDER BY id LIMIT %s,12", (page_index,))
             # limit[index,count] 代表從page_index開始算，回傳到第12筆
             data = mycursor.fetchall()
-            data = list(data)
 
             if len(data) >= 12:
                 next_page = page + 1
@@ -96,16 +93,16 @@ def api_attractions():
 
             for x in range(len(data)):
                 result = {
-                    "id": data[x][0],
-                    "name": data[x][1],
-                    "category": data[x][2],
-                    "description": data[x][3],
-                    "address": data[x][4],
-                    "transport": data[x][5],
-                    "mrt": data[x][6],
-                    "latitude": data[x][7],
-                    "longitude": data[x][8],
-                    "images": eval(data[x][9]),
+                    "id": data[x]["id"],
+                    "name": data[x]["name"],
+                    "category": data[x]["category"],
+                    "description": data[x]["description"],
+                    "address": data[x]["address"],
+                    "transport": data[x]["transport"],
+                    "mrt": data[x]["mrt"],
+                    "latitude": data[x]["latitude"],
+                    "longitude": data[x]["longitude"],
+                    "images": eval(data[x]["images"]),
                 }
                 return_data.append(result)  # 把資料塞進去
                 # print(result)
@@ -126,29 +123,38 @@ def api_attractions():
 #  ------- 根據景點編號（id) 取得 景點資料 -------
 
 
-# 用.replace把{}換成<>
-@attraction.route("/api/attraction/{attractionId}".replace("{", "<").replace("}", ">"))
+@attraction.route("/api/attraction/<attractionId>")
 def api_attraction_id(attractionId):
     try:
         connection_object = connection_pool.get_connection()
-        mycursor = connection_object.cursor()
+        mycursor = connection_object.cursor(dictionary=True)
         id = request.args.get("id", None)
         attractionId = int(attractionId)
         mycursor.execute(
             "SELECT * FROM spots WHERE id=%s", (attractionId,))
         data = mycursor.fetchone()
+        img_url = data["images"].split("https")
+        imgurl_list = (data["images"]).split("', '")
+        imgurl_list[0] = imgurl_list[0][2:]
+        # url_lst[-1] = url_lst[-1][:-2]
+        imgurl_list[len(imgurl_list) -
+                    1] = imgurl_list[len(imgurl_list)-1][:-2]
+        # url總長度
+        # print(url_lst)
+
         final_result = {
             "data": {
-                "id": data[0],
-                "name": data[1],
-                "category": data[2],
-                "description": data[3],
-                "address": data[4],
-                "transport": data[5],
-                "mrt": data[6],
-                "latitude": data[7],
-                "longitude": data[8],
-                "images": eval(data[9])  # string 轉 list, 若 list 裡有 []，可用eval
+                "id": data["id"],
+                "name": data["name"],
+                "category": data["category"],
+                "description": data["description"],
+                "address": data["address"],
+                "transport": data["transport"],
+                "mrt": data["mrt"],
+                "latitude": data["latitude"],
+                "longitude": data["longitude"],
+                "images": imgurl_list,
+                # string 轉 list, 若 list 裡有 []，可用eval
             }
         }
         # final_result.headers.add('Access-Control-Allow-Origin', '*')
@@ -173,7 +179,7 @@ def api_attraction_id(attractionId):
 #  ------- 取得景點分類(category)列表 -------
 
 
-@attraction.route("/api/categories",  methods=["GET"])
+@ attraction.route("/api/categories",  methods=["GET"])
 def api_categories():
     try:
         connection_object = connection_pool.get_connection()
